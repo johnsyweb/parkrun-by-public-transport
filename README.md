@@ -95,4 +95,6 @@ The app uses browser localStorage to cache data files:
 
 ## License
 
-MIT
+MIT License - see [LICENSE](LICENSE) file for details.
+
+By [Pete Johns](https://www.johnsy.com/) ([@johnsyweb](https://github.com/johnsyweb)). Not officially associated with parkrun. Written by parkrun volunteers for parkrun volunteers.

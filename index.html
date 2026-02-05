@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>parkrun Events by Public Transport</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -95,6 +101,64 @@
         </div>
       </div>
     </div>
+
+    <footer>
+      <p>
+        <strong>Data Sources:</strong> Transport data from
+        <a
+          href="https://opendata.transport.vic.gov.au/dataset/public-transport-lines-and-stops/resource/afa7b823-0c8b-47a1-bc40-ada565f684c7"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Transport Victoria Open Data Portal</a
+        >
+        • parkrun events from
+        <a
+          href="https://www.parkrun.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >parkrun.com</a
+        >
+      </p>
+      <p>
+        <strong>Important:</strong> Check
+        <a
+          href="https://www.parkrun.com.au/cancellations/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >parkrun cancellations</a
+        >
+        before travelling • Use
+        <a
+          href="https://transport.vic.gov.au/journey"
+          target="_blank"
+          rel="noopener noreferrer"
+          >PTV Journey Planner</a
+        >
+        to plan your trip
+      </p>
+      <p>
+        By
+        <a
+          href="https://www.johnsy.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Pete Johns</a
+        >
+        (<a
+          href="https://github.com/johnsyweb"
+          target="_blank"
+          rel="noopener noreferrer"
+          >@johnsyweb</a
+        >) • Licensed under
+        <a
+          href="https://github.com/johnsyweb/parkrun-by-public-transport/blob/main/LICENSE"
+          target="_blank"
+          rel="noopener noreferrer"
+          >MIT</a
+        >
+        • Not officially associated with parkrun
+      </p>
+    </footer>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
