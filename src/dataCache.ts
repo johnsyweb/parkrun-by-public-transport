@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 
+import type { TransportStop, TransportStopsData } from "./types";
+
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
 interface CachedData<T> {
@@ -81,16 +83,18 @@ export class DataCache {
     );
   }
 
-  static async getTransportStops() {
+  static async getTransportStops(): Promise<TransportStopsData> {
     // Use local data files served from public directory
-    return this.fetchWithCache(
+    return this.fetchWithCache<TransportStopsData>(
       `${import.meta.env.BASE_URL}data/public_transport_stops.geojson`,
       "transport-stops",
     );
   }
 
-  static async getTransportStopsByMode(modes: string[]) {
-    const result: any[] = [];
+  static async getTransportStopsByMode(
+    modes: string[],
+  ): Promise<TransportStop[]> {
+    const result: TransportStop[] = [];
     const modesToFetch: string[] = [];
 
     // Check which modes we have cached
@@ -98,7 +102,7 @@ export class DataCache {
       const cached = localStorage.getItem(`transport-stops-${mode}`);
       if (cached) {
         try {
-          const cachedEntry: CachedData<any[]> = JSON.parse(cached);
+          const cachedEntry: CachedData<TransportStop[]> = JSON.parse(cached);
           const age = Date.now() - cachedEntry.timestamp;
 
           if (age < ONE_WEEK_MS) {
@@ -130,10 +134,10 @@ export class DataCache {
       throw new Error(`Failed to fetch transport stops: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as TransportStopsData;
 
     // Split by mode and cache separately
-    const modeGroups: Record<string, any[]> = {};
+    const modeGroups: Record<string, TransportStop[]> = {};
 
     for (const feature of data.features) {
       const mode = feature.properties.MODE;
@@ -146,7 +150,7 @@ export class DataCache {
     // Cache each mode separately
     for (const [mode, features] of Object.entries(modeGroups)) {
       try {
-        const cachedData: CachedData<any[]> = {
+        const cachedData: CachedData<TransportStop[]> = {
           data: features,
           timestamp: Date.now(),
         };

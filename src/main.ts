@@ -9,7 +9,8 @@ import { DataCache } from "./dataCache";
 import "./style.css";
 
 // Fix Leaflet default marker icon paths
-delete (L.Icon.Default.prototype as any)._getIconUrl;
+const iconProto = L.Icon.Default.prototype as { _getIconUrl?: () => string };
+delete iconProto._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
     "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
@@ -240,8 +241,11 @@ class parkrunTransportApp {
     // Fit map to show all markers
     if (events.length > 0 && this.eventMarkers.getLayers().length > 0) {
       try {
+        const markers = this.eventMarkers
+          .getLayers()
+          .filter((layer): layer is L.Marker => layer instanceof L.Marker);
         const bounds = L.latLngBounds(
-          this.eventMarkers.getLayers().map((layer: any) => layer.getLatLng()),
+          markers.map((marker) => marker.getLatLng()),
         );
         if (bounds.isValid()) {
           this.map.fitBounds(bounds, { padding: [50, 50] });
@@ -275,7 +279,7 @@ class parkrunTransportApp {
     ) as HTMLInputElement;
     const distanceValue = document.getElementById("distance-value");
     const clearCacheBtn = document.getElementById("clear-cache-btn");
-    const modeCheckboxes = document.querySelectorAll(
+    const modeCheckboxes = document.querySelectorAll<HTMLInputElement>(
       '.mode-filter input[type="checkbox"]',
     );
 
@@ -307,15 +311,15 @@ class parkrunTransportApp {
     modeCheckboxes.forEach((checkbox) => {
       checkbox.addEventListener("change", async () => {
         this.selectedModes = Array.from(modeCheckboxes)
-          .filter((cb: any) => cb.checked)
-          .map((cb: any) => cb.value);
+          .filter((cb) => cb.checked)
+          .map((cb) => cb.value);
 
         if (this.selectedModes.length === 0) {
           alert("Please select at least one transport mode");
           (checkbox as HTMLInputElement).checked = true;
           this.selectedModes = Array.from(modeCheckboxes)
-            .filter((cb: any) => cb.checked)
-            .map((cb: any) => cb.value);
+            .filter((cb) => cb.checked)
+            .map((cb) => cb.value);
           return;
         }
 
