@@ -23,17 +23,32 @@ Data is cached in browser localStorage for 1 week to minimize network requests a
 
 ### Prerequisites
 
-- Node.js 18+ 
-- npm
+- [mise](https://mise.jdx.dev/) - Development environment manager
 
 ### Setup
 
-```bash
-# Install dependencies
-npm install
+1. Install mise (if you haven't already):
+   ```bash
+   curl https://mise.run | sh
+   ```
 
-# Start development server
-npm run dev
+2. Install project dependencies (Node.js and pnpm will be installed automatically by mise):
+   ```bash
+   mise install
+   pnpm install
+   ```
+
+The `.tool-versions` file specifies the required versions:
+- Node.js LTS (latest stable)
+- pnpm latest
+
+> [!NOTE]
+> GitHub Actions uses the same versions via `jdx/mise-action@v2`, ensuring consistent environments between local development and CI/CD.
+
+### Development Server
+
+```bash
+pnpm run dev
 ```
 
 The app will be available at [http://localhost:5173/](http://localhost:5173/)
@@ -42,9 +57,9 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 
 ### Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
+- `pnpm run dev` - Start development server
+- `pnpm run build` - Build for production
+- `pnpm run preview` - Preview production build
 
 ### Browser Cache
 
