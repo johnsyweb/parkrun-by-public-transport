@@ -1,8 +1,8 @@
 export interface ParkrunEvent {
   id: number;
-  type: 'Feature';
+  type: "Feature";
   geometry: {
-    type: 'Point';
+    type: "Point";
     coordinates: [number, number]; // [longitude, latitude]
   };
   properties: {
@@ -17,9 +17,9 @@ export interface ParkrunEvent {
 }
 
 export interface TransportStop {
-  type: 'Feature';
+  type: "Feature";
   geometry: {
-    type: 'Point';
+    type: "Point";
     coordinates: [number, number]; // [longitude, latitude]
   };
   properties: {
@@ -31,13 +31,13 @@ export interface TransportStop {
 
 export interface ParkrunEventsData {
   events: {
-    type: 'FeatureCollection';
+    type: "FeatureCollection";
     features: ParkrunEvent[];
   };
 }
 
 export interface TransportStopsData {
-  type: 'FeatureCollection';
+  type: "FeatureCollection";
   name: string;
   features: TransportStop[];
 }

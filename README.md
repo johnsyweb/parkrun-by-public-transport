@@ -28,6 +28,7 @@ Data is cached in browser localStorage for 1 week to minimize network requests a
 ### Setup
 
 1. Install mise (if you haven't already):
+
    ```bash
    curl https://mise.run | sh
    ```
@@ -39,6 +40,7 @@ Data is cached in browser localStorage for 1 week to minimize network requests a
    ```
 
 The `.tool-versions` file specifies the required versions:
+
 - Node.js LTS (latest stable)
 - pnpm latest
 
