@@ -14,7 +14,6 @@
     "format:check": "prettier --check '**/*.{ts,tsx,json,css,html,md}'",
     "check": "pnpm typecheck && pnpm lint && pnpm format:check",
     "generate:sitemap": "tsx scripts/generate-sitemap.ts",
-    "generate:og-image": "tsx scripts/generate-og-image.ts",
     "generate:screenshot": "tsx scripts/generate-screenshot.ts",
     "prepare": "husky"
   },

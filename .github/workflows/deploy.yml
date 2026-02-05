@@ -79,14 +79,13 @@ jobs:
         env:
           NODE_ENV: production
 
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install chromium
+
+      - name: Generate OG image
+        run: pnpm generate:screenshot
+
       - name: Setup Pages
-        - name: Install Playwright browsers
-          run: pnpm exec playwright install chromium
-
-        - name: Generate OG image
-          run: pnpm generate:og-image
-
-        - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact

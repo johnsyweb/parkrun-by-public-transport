@@ -1,18 +1,24 @@
 import { chromium } from "playwright";
 import { createServer } from "http-server";
-import { resolve } from "path";
+import { cp, mkdtemp, rm } from "fs/promises";
+import { tmpdir } from "os";
+import { dirname, join, resolve } from "path";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const rootDir = resolve(__dirname, "..");
 
 async function generateScreenshot() {
-  // Start a simple HTTP server to serve the dist folder
   const distPath = resolve(rootDir, "dist");
+  const tempRoot = await mkdtemp(join(tmpdir(), "pr-by-pt-"));
+  const servedRoot = join(tempRoot, "site");
+  const basePath = join(servedRoot, "parkrun-by-public-transport");
+
+  await cp(distPath, basePath, { recursive: true });
+
   const server = createServer({
-    root: distPath,
+    root: servedRoot,
   });
 
   const port = 8080;
@@ -37,7 +43,7 @@ async function generateScreenshot() {
 
     try {
       await desktopPage.goto(url, {
-        waitUntil: "networkidle",
+        waitUntil: "domcontentloaded",
         timeout: 30000,
       });
     } catch (error) {
@@ -51,12 +57,12 @@ async function generateScreenshot() {
     // Wait for any animations/transitions
     await desktopPage.waitForTimeout(2000);
 
-    const desktopPath = resolve(rootDir, "screenshot-desktop.png");
+    const desktopPath = resolve(distPath, "og-image.png");
     await desktopPage.screenshot({
       path: desktopPath,
       type: "png",
     });
-    console.log("✓ Generated screenshot-desktop.png");
+    console.log("✓ Generated og-image.png");
 
     // Mobile screenshot (iPhone 14 Pro)
     const mobilePage = await browser.newPage({
@@ -67,7 +73,7 @@ async function generateScreenshot() {
 
     try {
       await mobilePage.goto(url, {
-        waitUntil: "networkidle",
+        waitUntil: "domcontentloaded",
         timeout: 30000,
       });
     } catch (error) {
@@ -78,7 +84,7 @@ async function generateScreenshot() {
     await mobilePage.waitForSelector("#map", { timeout: 10000 });
     await mobilePage.waitForTimeout(2000);
 
-    const mobilePath = resolve(rootDir, "screenshot-mobile.png");
+    const mobilePath = resolve(distPath, "screenshot-mobile.png");
     await mobilePage.screenshot({
       path: mobilePath,
       type: "png",
@@ -88,6 +94,7 @@ async function generateScreenshot() {
     await browser.close();
   } finally {
     server.close();
+    await rm(tempRoot, { recursive: true, force: true });
   }
 }
 
