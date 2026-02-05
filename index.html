@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>parkrun Events by Public Transport</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>🏃 parkrun Events Near Public Transport</h1>
+      <div class="controls">
+        <div class="control-group">
+          <label for="distance-slider">
+            Distance: <span id="distance-value">1.0</span> km
+          </label>
+          <input 
+            type="range" 
+            id="distance-slider" 
+            min="0.5" 
+            max="5" 
+            step="0.5" 
+            value="1.0"
+          >
+        </div>
+        <div class="control-group">
+          <label>Transport Modes:</label>
+          <div class="mode-filters">
+            <label class="mode-filter">
+              <input type="checkbox" id="mode-metro-train" value="METRO TRAIN" checked>
+              <span>🚇 Metro Train</span>
+            </label>
+            <label class="mode-filter">
+              <input type="checkbox" id="mode-regional-train" value="REGIONAL TRAIN" checked>
+              <span>🚆 Regional Train</span>
+            </label>
+            <label class="mode-filter">
+              <input type="checkbox" id="mode-metro-tram" value="METRO TRAM" checked>
+              <span>🚊 Tram</span>
+            </label>
+            <label class="mode-filter">
+              <input type="checkbox" id="mode-metro-bus" value="METRO BUS" checked>
+              <span>🚌 Metro Bus</span>
+            </label>
+            <label class="mode-filter">
+              <input type="checkbox" id="mode-regional-bus" value="REGIONAL BUS">
+              <span>🚌 Regional Bus</span>
+            </label>
+          </div>
+        </div>
+        <button id="clear-cache-btn" class="btn-secondary">Clear Cache</button>
+      </div>
+      <div class="stats">
+        <span id="stats-text">Loading...</span>
+      </div>
+    </header>
+
+    <div class="container">
+      <div id="map"></div>
+      <div id="sidebar">
+        <h2>Events Near Transport</h2>
+        <div id="event-list" class="event-list">
+          <p class="loading">Loading events...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
