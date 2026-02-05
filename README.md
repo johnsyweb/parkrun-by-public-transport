@@ -19,6 +19,10 @@ The application uses locally bundled data files:
 
 Data is served from the public directory and cached in browser localStorage for 1 week to minimize network requests and improve performance.
 
+### Data Updates
+
+Data files are automatically updated every Monday at 08:00 UTC via GitHub Actions. Manual updates can be triggered via the "Update Data Files" workflow dispatch in GitHub Actions.
+
 ## Development
 
 ### Prerequisites

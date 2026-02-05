@@ -1,0 +1,69 @@
+name: Update Data Files
+
+on:
+  schedule:
+    # Run every Monday at 08:00 UTC
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Download parkrun events
+        run: |
+          curl -sSL "https://images.parkrun.com/events.json" \
+            -H "User-Agent: parkrun-by-public-transport" \
+            -o public/data/events.json
+          echo "✓ Updated parkrun events"
+
+      - name: Download Transport Victoria stops
+        run: |
+          curl -sSL "https://opendata.transport.vic.gov.au/dataset/6d36dfd9-8693-4552-8a03-05eb29a391fd/resource/afa7b823-0c8b-47a1-bc40-ada565f684c7/download/public_transport_stops.geojson" \
+            -H "User-Agent: parkrun-by-public-transport" \
+            -o public/data/public_transport_stops.geojson
+          echo "✓ Updated Transport Victoria stops"
+
+      - name: Check for changes
+        id: check-changes
+        run: |
+          if git diff --quiet public/data/; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.check-changes.outputs.has_changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Get file sizes for commit message
+          EVENTS_SIZE=$(du -h public/data/events.json | cut -f1)
+          STOPS_SIZE=$(du -h public/data/public_transport_stops.geojson | cut -f1)
+          
+          git add public/data/
+          git commit -m "data: update parkrun events and transport stops
+
+- parkrun events: $EVENTS_SIZE
+- Transport Victoria stops: $STOPS_SIZE
+- Updated: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          
+          git push
+
+      - name: No changes to commit
+        if: steps.check-changes.outputs.has_changes == 'false'
+        run: echo "ℹ️ No changes detected in data files"
