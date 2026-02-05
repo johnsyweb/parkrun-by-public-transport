@@ -56,11 +56,7 @@ jobs:
           STOPS_SIZE=$(du -h public/data/public_transport_stops.geojson | cut -f1)
           
           git add public/data/
-          git commit -m "data: update parkrun events and transport stops
-
-- parkrun events: $EVENTS_SIZE
-- Transport Victoria stops: $STOPS_SIZE
-- Updated: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git commit -m "$(printf 'data: update parkrun events and transport stops\n\n  - parkrun events: %s\n  - Transport Victoria stops: %s\n  - Updated: %s' "$EVENTS_SIZE" "$STOPS_SIZE" "$(date -u +'%Y-%m-%d %H:%M:%S UTC')")"
           
           git push
 
