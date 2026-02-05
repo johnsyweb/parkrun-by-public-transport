@@ -12,12 +12,12 @@ A modern web application to find parkrun events near public transport stops in V
 
 ## Data Sources
 
-The application fetches and caches data directly in your browser from:
+The application uses locally bundled data files:
 
-- **parkrun events**: [https://images.parkrun.com/events.json](https://images.parkrun.com/events.json)
-- **Transport Victoria stops**: [Open Data Portal](https://opendata.transport.vic.gov.au/)
+- **parkrun events**: `public/data/events.json` (cached from parkrun.com periodically)
+- **Transport Victoria stops**: `public/data/public_transport_stops.geojson` (cached from Open Data Portal)
 
-Data is cached in browser localStorage for 1 week to minimize network requests and improve performance.
+Data is served from the public directory and cached in browser localStorage for 1 week to minimize network requests and improve performance.
 
 ## Development
 

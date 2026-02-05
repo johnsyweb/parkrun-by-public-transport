@@ -75,22 +75,15 @@ export class DataCache {
   }
 
   static async getParkrunEvents() {
-    return this.fetchWithCache(
-      "https://images.parkrun.com/events.json",
-      "parkrun-events",
-    );
+    return this.fetchWithCache("/data/events.json", "parkrun-events");
   }
 
   static async getTransportStops() {
-    // Use proxy in development, CORS proxy in production
-    const url = import.meta.env.DEV
-      ? "/api/transport"
-      : "https://corsproxy.io/?" +
-        encodeURIComponent(
-          "https://opendata.transport.vic.gov.au/dataset/6d36dfd9-8693-4552-8a03-05eb29a391fd/resource/afa7b823-0c8b-47a1-bc40-ada565f684c7/download/public_transport_stops.geojson",
-        );
-
-    return this.fetchWithCache(url, "transport-stops");
+    // Use local data files served from public directory
+    return this.fetchWithCache(
+      "/data/public_transport_stops.geojson",
+      "transport-stops",
+    );
   }
 
   static async getTransportStopsByMode(modes: string[]) {
