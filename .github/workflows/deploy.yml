@@ -80,7 +80,13 @@ jobs:
           NODE_ENV: production
 
       - name: Setup Pages
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        - name: Install Playwright browsers
+          run: pnpm exec playwright install chromium
+
+        - name: Generate OG image
+          run: pnpm generate:og-image
+
+        - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
