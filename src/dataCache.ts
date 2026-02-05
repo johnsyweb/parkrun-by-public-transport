@@ -118,15 +118,9 @@ export class DataCache {
     }
 
     // Fetch the full dataset once and split by mode
+    // Using local data that's updated weekly by GitHub Actions workflow
     console.log(`📥 Fetching transport stops (will cache all modes)...`);
-    const url = import.meta.env.DEV
-      ? "/api/transport"
-      : "https://corsproxy.io/?" +
-        encodeURIComponent(
-          "https://opendata.transport.vic.gov.au/dataset/6d36dfd9-8693-4552-8a03-05eb29a391fd/resource/afa7b823-0c8b-47a1-bc40-ada565f684c7/download/public_transport_stops.geojson",
-        );
-
-    const response = await fetch(url);
+    const response = await fetch("/data/public_transport_stops.geojson");
     if (!response.ok) {
       throw new Error(`Failed to fetch transport stops: ${response.status}`);
     }
