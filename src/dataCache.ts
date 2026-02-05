@@ -75,13 +75,16 @@ export class DataCache {
   }
 
   static async getParkrunEvents() {
-    return this.fetchWithCache("/data/events.json", "parkrun-events");
+    return this.fetchWithCache(
+      `${import.meta.env.BASE_URL}data/events.json`,
+      "parkrun-events",
+    );
   }
 
   static async getTransportStops() {
     // Use local data files served from public directory
     return this.fetchWithCache(
-      "/data/public_transport_stops.geojson",
+      `${import.meta.env.BASE_URL}data/public_transport_stops.geojson`,
       "transport-stops",
     );
   }
@@ -120,7 +123,9 @@ export class DataCache {
     // Fetch the full dataset once and split by mode
     // Using local data that's updated weekly by GitHub Actions workflow
     console.log(`📥 Fetching transport stops (will cache all modes)...`);
-    const response = await fetch("/data/public_transport_stops.geojson");
+    const response = await fetch(
+      `${import.meta.env.BASE_URL}data/public_transport_stops.geojson`,
+    );
     if (!response.ok) {
       throw new Error(`Failed to fetch transport stops: ${response.status}`);
     }
