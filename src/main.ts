@@ -3,7 +3,6 @@ import type {
   ParkrunEvent, 
   TransportStop, 
   ParkrunEventsData, 
-  TransportStopsData, 
   EventWithNearestStop 
 } from './types';
 import { DataCache } from './dataCache';
@@ -219,10 +218,12 @@ class parkrunTransportApp {
     });
 
     // Fit map to show all markers
-    if (events.length > 0) {
+    if (events.length > 0 && this.eventMarkers.getLayers().length > 0) {
       try {
-        const bounds = this.eventMarkers.getBounds();
-        if (bounds && bounds.isValid()) {
+        const bounds = L.latLngBounds(
+          this.eventMarkers.getLayers().map((layer: any) => layer.getLatLng())
+        );
+        if (bounds.isValid()) {
           this.map.fitBounds(bounds, { padding: [50, 50] });
         }
       } catch (error) {

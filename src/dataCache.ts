@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
 interface CachedData<T> {
@@ -84,7 +86,6 @@ export class DataCache {
   }
   
   static async getTransportStopsByMode(modes: string[]) {
-    const allCachedModes = this.getCachedModes();
     const result: any[] = [];
     const modesToFetch: string[] = [];
     
