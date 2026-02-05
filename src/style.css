@@ -29,12 +29,14 @@ body {
   background: var(--parkrun-light-grey);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
 #app {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 header {
@@ -123,6 +125,17 @@ header h1 {
   flex: 1;
   overflow: hidden;
   min-height: 0;
+}
+
+@media (min-width: 769px) {
+  body {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  #app {
+    height: 100vh;
+  }
 }
 
 #map {
@@ -242,18 +255,30 @@ footer {
 
 /* Responsive design */
 @media (max-width: 768px) {
+  #app {
+    min-height: 100svh;
+  }
+
   .container {
     flex-direction: column;
+    overflow: visible;
+    min-height: 70svh;
   }
 
   #sidebar {
     width: 100%;
-    height: 40%;
+    height: auto;
+    min-height: 35svh;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
   }
 
   #map {
-    height: 60%;
+    height: 45svh;
+    min-height: 45svh;
+  }
+
+  .event-list {
+    max-height: 45svh;
   }
 
   header h1 {
