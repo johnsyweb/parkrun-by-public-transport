@@ -5,7 +5,7 @@ A modern web application to find parkrun events near public transport stops in V
 ## Features
 
 - 🗺️ Interactive map showing parkrun events and nearby transport stops
-- 📋 Sortable list of events by distance to nearest stop
+- 📋 Sort by nearest stop or your location, with reverse ordering
 - 🎚️ Adjustable distance filter (0.5km - 5km)
 - 📊 Real-time statistics on transit accessibility
 - 📱 Responsive design for mobile and desktop

@@ -71,6 +71,16 @@ header h1 {
   font-weight: 500;
 }
 
+.control-select {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+  color: var(--parkrun-black);
+  cursor: pointer;
+}
+
 .mode-filters {
   display: flex;
   gap: 0.75rem;
@@ -113,6 +123,22 @@ header h1 {
 
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.location-status {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin-bottom: 0.75rem;
+}
+
+.location-status.is-error {
+  color: var(--parkrun-apricot);
+  opacity: 1;
 }
 
 .stats {
@@ -218,6 +244,12 @@ footer {
   font-size: 0.85rem;
   color: #667eea;
   font-weight: 500;
+}
+
+.event-distance {
+  font-size: 0.85rem;
+  color: #2c3e50;
+  margin-top: 0.35rem;
 }
 
 .transport-icon {

@@ -132,6 +132,33 @@
             />
           </div>
           <div class="control-group">
+            <label for="sort-by">Sort:</label>
+            <select id="sort-by" class="control-select">
+              <option value="nearest-stop">Nearest stop distance</option>
+              <option value="my-location">Distance from me</option>
+            </select>
+            <button
+              id="sort-order-btn"
+              class="btn-secondary"
+              type="button"
+              aria-pressed="false"
+              aria-label="Sort closest first"
+            >
+              Closest first
+            </button>
+            <button id="use-location-btn" class="btn-secondary" type="button">
+              Use my location
+            </button>
+            <button
+              id="recenter-btn"
+              class="btn-secondary"
+              type="button"
+              disabled
+            >
+              Recenter
+            </button>
+          </div>
+          <div class="control-group">
             <label>Transport Modes:</label>
             <div class="mode-filters">
               <label class="mode-filter">
@@ -183,6 +210,9 @@
           <button id="clear-cache-btn" class="btn-secondary">
             Clear Cache
           </button>
+        </div>
+        <div class="location-status" id="location-status">
+          Location: not set
         </div>
         <div class="stats">
           <span id="stats-text">Loading...</span>

@@ -24,6 +24,12 @@ class parkrunTransportApp {
   private transportStops: TransportStop[] = [];
   private eventsWithStops: EventWithNearestStop[] = [];
   private maxDistance: number = 1000; // meters (1km)
+  private sortBy: "nearest-stop" | "my-location" = "nearest-stop";
+  private sortOrder: "asc" | "desc" = "asc";
+  private userLocation: { lat: number; lon: number } | null = null;
+  private userLocationMarker: L.CircleMarker | null = null;
+  private hasAutoPannedToUser: boolean = false;
+  private readonly preferencesKey: string = "parkrun-pt-preferences";
   private selectedModes: string[] = [
     "METRO TRAIN",
     "REGIONAL TRAIN",
@@ -34,11 +40,14 @@ class parkrunTransportApp {
   private stopMarkers: L.LayerGroup = L.layerGroup();
 
   async init() {
+    this.loadPreferences();
     await this.loadData();
     this.initMap();
+    await this.ensureLocationForSorting();
     this.calculateNearestStops();
     this.renderEventList();
     this.setupEventListeners();
+    this.applyPreferencesToControls();
     this.updateStats();
   }
 
@@ -69,10 +78,21 @@ class parkrunTransportApp {
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "© OpenStreetMap contributors",
       maxZoom: 19,
+      crossOrigin: true,
     }).addTo(this.map);
 
     this.eventMarkers.addTo(this.map);
     this.stopMarkers.addTo(this.map);
+
+    this.map.whenReady(() => {
+      // Safari can render blank tiles until size is invalidated.
+      setTimeout(() => this.map.invalidateSize(), 0);
+    });
+
+    window.addEventListener("resize", () => this.map.invalidateSize());
+    window.addEventListener("orientationchange", () =>
+      this.map.invalidateSize(),
+    );
   }
 
   private calculateDistance(
@@ -133,21 +153,33 @@ class parkrunTransportApp {
     const eventList = document.getElementById("event-list");
     if (!eventList) return;
 
-    const eventsNearTransport = this.eventsWithStops
-      .filter((event) => event.nearestStop)
-      .sort((a, b) => a.nearestStop!.distance - b.nearestStop!.distance);
+    const eventsNearTransport = this.eventsWithStops.filter(
+      (event) => event.nearestStop,
+    );
 
-    if (eventsNearTransport.length === 0) {
+    const sortedEvents = [...eventsNearTransport].sort((a, b) => {
+      const aKey = this.getSortKey(a);
+      const bKey = this.getSortKey(b);
+      const delta = aKey - bKey;
+      return this.sortOrder === "asc" ? delta : -delta;
+    });
+
+    if (sortedEvents.length === 0) {
       eventList.innerHTML =
         '<p class="loading">No events found within the selected distance.</p>';
       return;
     }
 
-    eventList.innerHTML = eventsNearTransport
+    eventList.innerHTML = sortedEvents
       .map((event) => {
         const distanceKm = (event.nearestStop!.distance / 1000).toFixed(2);
         const mode = event.nearestStop!.stop.properties.MODE;
         const stopName = event.nearestStop!.stop.properties.STOP_NAME;
+        const userDistance = this.getUserDistance(event);
+        const userDistanceText =
+          userDistance !== null
+            ? `<div class="event-distance">${(userDistance / 1000).toFixed(2)} km from you</div>`
+            : "";
 
         return `
           <div class="event-item" data-event-id="${event.id}">
@@ -157,6 +189,7 @@ class parkrunTransportApp {
               <span class="transport-icon">${this.getModeIcon(mode)}</span>
               <span>${distanceKm} km to ${stopName} (${mode})</span>
             </div>
+            ${userDistanceText}
           </div>
         `;
       })
@@ -170,7 +203,28 @@ class parkrunTransportApp {
       });
     });
 
-    this.renderMarkers(eventsNearTransport);
+    this.renderMarkers(sortedEvents);
+  }
+
+  private getSortKey(event: EventWithNearestStop): number {
+    if (this.sortBy === "my-location") {
+      const userDistance = this.getUserDistance(event);
+      return userDistance ?? Number.POSITIVE_INFINITY;
+    }
+
+    return event.nearestStop?.distance ?? Number.POSITIVE_INFINITY;
+  }
+
+  private getUserDistance(event: EventWithNearestStop): number | null {
+    if (!this.userLocation) return null;
+
+    const [eventLon, eventLat] = event.geometry.coordinates;
+    return this.calculateDistance(
+      this.userLocation.lat,
+      this.userLocation.lon,
+      eventLat,
+      eventLon,
+    );
   }
 
   private renderMarkers(events: EventWithNearestStop[]) {
@@ -279,6 +333,18 @@ class parkrunTransportApp {
     ) as HTMLInputElement;
     const distanceValue = document.getElementById("distance-value");
     const clearCacheBtn = document.getElementById("clear-cache-btn");
+    const sortBySelect = document.getElementById(
+      "sort-by",
+    ) as HTMLSelectElement | null;
+    const sortOrderBtn = document.getElementById(
+      "sort-order-btn",
+    ) as HTMLButtonElement | null;
+    const useLocationBtn = document.getElementById(
+      "use-location-btn",
+    ) as HTMLButtonElement | null;
+    const recenterBtn = document.getElementById(
+      "recenter-btn",
+    ) as HTMLButtonElement | null;
     const modeCheckboxes = document.querySelectorAll<HTMLInputElement>(
       '.mode-filter input[type="checkbox"]',
     );
@@ -291,6 +357,7 @@ class parkrunTransportApp {
         this.calculateNearestStops();
         this.renderEventList();
         this.updateStats();
+        this.savePreferences();
       });
     }
 
@@ -304,6 +371,61 @@ class parkrunTransportApp {
           DataCache.clearCache();
           window.location.reload();
         }
+      });
+    }
+
+    if (sortBySelect) {
+      sortBySelect.addEventListener("change", async () => {
+        const nextSortBy = sortBySelect.value as "nearest-stop" | "my-location";
+        if (nextSortBy === "my-location" && !this.userLocation) {
+          const enabled = await this.requestUserLocation();
+          if (!enabled) {
+            sortBySelect.value = "nearest-stop";
+            this.sortBy = "nearest-stop";
+            this.renderEventList();
+            this.savePreferences();
+            return;
+          }
+        }
+
+        this.sortBy = nextSortBy;
+        this.renderEventList();
+        this.savePreferences();
+      });
+    }
+
+    if (sortOrderBtn) {
+      sortOrderBtn.addEventListener("click", () => {
+        this.sortOrder = this.sortOrder === "asc" ? "desc" : "asc";
+        this.updateSortOrderButton(sortOrderBtn);
+        this.renderEventList();
+        this.savePreferences();
+      });
+      this.updateSortOrderButton(sortOrderBtn);
+    }
+
+    if (useLocationBtn) {
+      useLocationBtn.addEventListener("click", async () => {
+        await this.requestUserLocation();
+        if (sortBySelect && this.userLocation) {
+          sortBySelect.value = "my-location";
+          this.sortBy = "my-location";
+        }
+        this.renderEventList();
+        this.savePreferences();
+        if (recenterBtn && this.userLocation) {
+          recenterBtn.disabled = false;
+        }
+      });
+    }
+
+    if (recenterBtn) {
+      recenterBtn.addEventListener("click", () => {
+        if (!this.userLocation || !this.map) return;
+        this.map.setView(
+          [this.userLocation.lat, this.userLocation.lon],
+          Math.max(this.map.getZoom(), 13),
+        );
       });
     }
 
@@ -325,6 +447,7 @@ class parkrunTransportApp {
 
         // Reload data with new modes
         await this.reloadWithModes();
+        this.savePreferences();
       });
     });
   }
@@ -364,6 +487,200 @@ class parkrunTransportApp {
     const percentage = ((eventsNearTransport / totalEvents) * 100).toFixed(1);
 
     statsText.textContent = `${eventsNearTransport} of ${totalEvents} events (${percentage}%) are within ${(this.maxDistance / 1000).toFixed(1)}km of public transport`;
+  }
+
+  private updateUserLocationMarker() {
+    if (!this.userLocation || !this.map) return;
+
+    const latLng: L.LatLngExpression = [
+      this.userLocation.lat,
+      this.userLocation.lon,
+    ];
+
+    if (!this.userLocationMarker) {
+      this.userLocationMarker = L.circleMarker(latLng, {
+        radius: 7,
+        color: "#4c1a57",
+        weight: 2,
+        fillColor: "#f7a541",
+        fillOpacity: 0.9,
+      }).addTo(this.map);
+
+      this.userLocationMarker.bindPopup("You are here");
+    } else {
+      this.userLocationMarker.setLatLng(latLng);
+    }
+  }
+
+  private updateSortOrderButton(button: HTMLButtonElement) {
+    const isAsc = this.sortOrder === "asc";
+    button.textContent = isAsc ? "Closest first" : "Farthest first";
+    button.setAttribute("aria-pressed", isAsc ? "false" : "true");
+    button.setAttribute(
+      "aria-label",
+      isAsc ? "Sort closest first" : "Sort farthest first",
+    );
+  }
+
+  private loadPreferences() {
+    if (!window.localStorage) return;
+
+    try {
+      const raw = localStorage.getItem(this.preferencesKey);
+      if (!raw) return;
+      const prefs = JSON.parse(raw) as {
+        maxDistanceKm?: number;
+        selectedModes?: string[];
+        sortBy?: "nearest-stop" | "my-location";
+        sortOrder?: "asc" | "desc";
+      };
+
+      if (typeof prefs.maxDistanceKm === "number") {
+        this.maxDistance = Math.max(0.5, prefs.maxDistanceKm) * 1000;
+      }
+
+      if (
+        Array.isArray(prefs.selectedModes) &&
+        prefs.selectedModes.length > 0
+      ) {
+        this.selectedModes = prefs.selectedModes;
+      }
+
+      if (prefs.sortBy === "nearest-stop" || prefs.sortBy === "my-location") {
+        this.sortBy = prefs.sortBy;
+      }
+
+      if (prefs.sortOrder === "asc" || prefs.sortOrder === "desc") {
+        this.sortOrder = prefs.sortOrder;
+      }
+    } catch (_) {
+      // Ignore malformed preferences
+    }
+  }
+
+  private savePreferences() {
+    if (!window.localStorage) return;
+
+    const prefs = {
+      maxDistanceKm: Number((this.maxDistance / 1000).toFixed(1)),
+      selectedModes: this.selectedModes,
+      sortBy: this.sortBy,
+      sortOrder: this.sortOrder,
+    };
+
+    try {
+      localStorage.setItem(this.preferencesKey, JSON.stringify(prefs));
+    } catch (_) {
+      // Ignore storage errors (private mode, quota, etc.)
+    }
+  }
+
+  private applyPreferencesToControls() {
+    const slider = document.getElementById(
+      "distance-slider",
+    ) as HTMLInputElement | null;
+    const distanceValue = document.getElementById("distance-value");
+    const sortBySelect = document.getElementById(
+      "sort-by",
+    ) as HTMLSelectElement | null;
+    const sortOrderBtn = document.getElementById(
+      "sort-order-btn",
+    ) as HTMLButtonElement | null;
+    const recenterBtn = document.getElementById(
+      "recenter-btn",
+    ) as HTMLButtonElement | null;
+    const modeCheckboxes = document.querySelectorAll<HTMLInputElement>(
+      '.mode-filter input[type="checkbox"]',
+    );
+
+    if (slider && distanceValue) {
+      slider.value = (this.maxDistance / 1000).toFixed(1);
+      distanceValue.textContent = (this.maxDistance / 1000).toFixed(1);
+    }
+
+    if (sortBySelect) {
+      sortBySelect.value = this.sortBy;
+    }
+
+    if (sortOrderBtn) {
+      this.updateSortOrderButton(sortOrderBtn);
+    }
+
+    if (modeCheckboxes.length > 0) {
+      modeCheckboxes.forEach((checkbox) => {
+        checkbox.checked = this.selectedModes.includes(checkbox.value);
+      });
+    }
+
+    if (recenterBtn) {
+      recenterBtn.disabled = !this.userLocation;
+    }
+  }
+
+  private updateLocationStatus(message: string, isError: boolean = false) {
+    const locationStatus = document.getElementById("location-status");
+    if (!locationStatus) return;
+    locationStatus.textContent = message;
+    locationStatus.classList.toggle("is-error", isError);
+  }
+
+  private async requestUserLocation(): Promise<boolean> {
+    if (!navigator.geolocation) {
+      this.updateLocationStatus("Location: not supported", true);
+      return false;
+    }
+
+    this.updateLocationStatus("Location: requesting...");
+
+    return new Promise((resolve) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.userLocation = {
+            lat: position.coords.latitude,
+            lon: position.coords.longitude,
+          };
+          const accuracyKm = (position.coords.accuracy / 1000).toFixed(1);
+          this.updateLocationStatus(`Location: enabled (+/-${accuracyKm} km)`);
+          this.updateUserLocationMarker();
+          const recenterBtn = document.getElementById(
+            "recenter-btn",
+          ) as HTMLButtonElement | null;
+          if (recenterBtn) {
+            recenterBtn.disabled = false;
+          }
+          if (!this.hasAutoPannedToUser && this.map) {
+            this.map.setView(
+              [this.userLocation.lat, this.userLocation.lon],
+              Math.max(this.map.getZoom(), 13),
+            );
+            this.hasAutoPannedToUser = true;
+          }
+          resolve(true);
+        },
+        (error) => {
+          this.userLocation = null;
+          const reason =
+            error.code === error.PERMISSION_DENIED
+              ? "permission denied"
+              : error.code === error.TIMEOUT
+                ? "request timed out"
+                : "unavailable";
+          this.updateLocationStatus(`Location: ${reason}`, true);
+          resolve(false);
+        },
+        { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 },
+      );
+    });
+  }
+
+  private async ensureLocationForSorting() {
+    if (this.sortBy !== "my-location") return;
+
+    const enabled = await this.requestUserLocation();
+    if (!enabled) {
+      this.sortBy = "nearest-stop";
+      this.savePreferences();
+    }
   }
 
   private getModeIcon(mode: string): string {
