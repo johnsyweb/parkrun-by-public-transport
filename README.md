@@ -75,6 +75,8 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 - `pnpm run dev` - Start development server
 - `pnpm run build` - Build for production
 - `pnpm run preview` - Preview production build
+- `pnpm run test` - Run unit tests
+- `pnpm run test:watch` - Run tests in watch mode
 - `pnpm run lint` - Run ESLint
 - `pnpm run format` - Format with Prettier
 - `pnpm run check` - Run typecheck, lint, and format:check
@@ -117,7 +119,10 @@ The app uses browser localStorage to cache data files:
 ```
 .
 ├── src/
+│   ├── __tests__/
+│   │   └── eventUtils.test.ts    # Unit tests
 │   ├── main.ts                   # Main application logic
+│   ├── eventUtils.ts             # Reusable event utilities
 │   ├── dataCache.ts              # Browser-side data caching
 │   ├── types.ts                  # TypeScript type definitions
 │   └── style.css                 # Styles
