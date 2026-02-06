@@ -5,9 +5,11 @@ A modern web application to find parkrun events near public transport stops in V
 ## Features
 
 - 🗺️ Interactive map showing parkrun events and nearby transport stops
-- 📋 Sort by nearest stop or your location, with reverse ordering
+- 📋 Sort by nearest stop or your location, with closest/farthest ordering
 - 🎚️ Adjustable distance filter (0.5km - 5km)
 - 📊 Real-time statistics on transit accessibility
+- 📍 "You are here" marker with a recenter control
+- 💾 Preferences saved in your browser
 - 📱 Responsive design for mobile and desktop
 
 ## Data Sources
@@ -24,6 +26,13 @@ Data is served from the public directory and cached in browser localStorage for 
 Data files are automatically updated every Monday at 08:00 UTC via GitHub Actions. Manual updates can be triggered via the "Update Data Files" workflow dispatch in GitHub Actions.
 
 ## Development
+
+New to the project? Start here:
+
+1. Install prerequisites.
+2. Install dependencies.
+3. Run the dev server.
+4. Make changes and run the checks.
 
 ### Prerequisites
 
@@ -66,6 +75,26 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 - `pnpm run dev` - Start development server
 - `pnpm run build` - Build for production
 - `pnpm run preview` - Preview production build
+- `pnpm run lint` - Run ESLint
+- `pnpm run format` - Format with Prettier
+- `pnpm run check` - Run typecheck, lint, and format:check
+
+### Location Permissions
+
+Sorting by your location or showing the "You are here" marker uses the browser
+geolocation API. The app only stores your preferences (not your coordinates)
+in localStorage. You can deny location access and still use the app.
+
+### Contributing
+
+First-time contributors are welcome. A good first change is a copy edit in the
+README, UI text, or a small CSS tweak.
+
+Before opening a PR:
+
+1. Run `pnpm run check`.
+2. Describe the user-visible behavior change in the PR.
+3. Add screenshots for UI changes when possible.
 
 ### Browser Cache
 
