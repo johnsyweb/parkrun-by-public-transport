@@ -6,6 +6,12 @@ import type {
   EventWithNearestStop,
 } from "./types";
 import { DataCache } from "./dataCache";
+import {
+  attachNearestStops,
+  countEventsNearTransport,
+  getUserDistance,
+  sortEvents,
+} from "./eventUtils";
 import "./style.css";
 
 // Fix Leaflet default marker icon paths
@@ -95,58 +101,12 @@ class parkrunTransportApp {
     );
   }
 
-  private calculateDistance(
-    lat1: number,
-    lon1: number,
-    lat2: number,
-    lon2: number,
-  ): number {
-    // Haversine formula to calculate distance between two points
-    const R = 6371e3; // Earth's radius in meters
-    const φ1 = (lat1 * Math.PI) / 180;
-    const φ2 = (lat2 * Math.PI) / 180;
-    const Δφ = ((lat2 - lat1) * Math.PI) / 180;
-    const Δλ = ((lon2 - lon1) * Math.PI) / 180;
-
-    const a =
-      Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-      Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return R * c; // Distance in meters
-  }
-
   private calculateNearestStops() {
-    this.eventsWithStops = this.parkrunEvents.map((event) => {
-      const [eventLon, eventLat] = event.geometry.coordinates;
-      let nearestStop: TransportStop | null = null;
-      let minDistance = Infinity;
-
-      for (const stop of this.transportStops) {
-        const [stopLon, stopLat] = stop.geometry.coordinates;
-        const distance = this.calculateDistance(
-          eventLat,
-          eventLon,
-          stopLat,
-          stopLon,
-        );
-
-        if (distance < minDistance) {
-          minDistance = distance;
-          nearestStop = stop;
-        }
-      }
-
-      const eventWithStop: EventWithNearestStop = { ...event };
-      if (nearestStop && minDistance <= this.maxDistance) {
-        eventWithStop.nearestStop = {
-          stop: nearestStop,
-          distance: minDistance,
-        };
-      }
-
-      return eventWithStop;
-    });
+    this.eventsWithStops = attachNearestStops(
+      this.parkrunEvents,
+      this.transportStops,
+      this.maxDistance,
+    );
   }
 
   private renderEventList() {
@@ -157,12 +117,12 @@ class parkrunTransportApp {
       (event) => event.nearestStop,
     );
 
-    const sortedEvents = [...eventsNearTransport].sort((a, b) => {
-      const aKey = this.getSortKey(a);
-      const bKey = this.getSortKey(b);
-      const delta = aKey - bKey;
-      return this.sortOrder === "asc" ? delta : -delta;
-    });
+    const sortedEvents = sortEvents(
+      eventsNearTransport,
+      this.sortBy,
+      this.sortOrder,
+      this.userLocation,
+    );
 
     if (sortedEvents.length === 0) {
       eventList.innerHTML =
@@ -175,7 +135,7 @@ class parkrunTransportApp {
         const distanceKm = (event.nearestStop!.distance / 1000).toFixed(2);
         const mode = event.nearestStop!.stop.properties.MODE;
         const stopName = event.nearestStop!.stop.properties.STOP_NAME;
-        const userDistance = this.getUserDistance(event);
+        const userDistance = getUserDistance(event, this.userLocation);
         const userDistanceText =
           userDistance !== null
             ? `<div class="event-distance">${(userDistance / 1000).toFixed(2)} km from you</div>`
@@ -204,27 +164,6 @@ class parkrunTransportApp {
     });
 
     this.renderMarkers(sortedEvents);
-  }
-
-  private getSortKey(event: EventWithNearestStop): number {
-    if (this.sortBy === "my-location") {
-      const userDistance = this.getUserDistance(event);
-      return userDistance ?? Number.POSITIVE_INFINITY;
-    }
-
-    return event.nearestStop?.distance ?? Number.POSITIVE_INFINITY;
-  }
-
-  private getUserDistance(event: EventWithNearestStop): number | null {
-    if (!this.userLocation) return null;
-
-    const [eventLon, eventLat] = event.geometry.coordinates;
-    return this.calculateDistance(
-      this.userLocation.lat,
-      this.userLocation.lon,
-      eventLat,
-      eventLon,
-    );
   }
 
   private renderMarkers(events: EventWithNearestStop[]) {
@@ -480,9 +419,7 @@ class parkrunTransportApp {
     const statsText = document.getElementById("stats-text");
     if (!statsText) return;
 
-    const eventsNearTransport = this.eventsWithStops.filter(
-      (e) => e.nearestStop,
-    ).length;
+    const eventsNearTransport = countEventsNearTransport(this.eventsWithStops);
     const totalEvents = this.parkrunEvents.length;
     const percentage = ((eventsNearTransport / totalEvents) * 100).toFixed(1);
 
