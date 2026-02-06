@@ -87,6 +87,11 @@ header h1 {
   flex-wrap: wrap;
 }
 
+.sidebar-section .mode-filters {
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
 .mode-filter {
   display: flex;
   align-items: center;
@@ -183,6 +188,18 @@ header h1 {
   background: #f8f9fa;
   border-bottom: 1px solid #e9ecef;
   font-size: 1.1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.sidebar-section {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.sidebar-section h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #495057;
 }
