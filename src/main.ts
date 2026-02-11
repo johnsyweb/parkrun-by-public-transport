@@ -183,15 +183,16 @@ class parkrunTransportApp {
     this.stopMarkers.clearLayers();
 
     // Custom icons - parkrun events more prominent than transport stops
+    const baseUrl = import.meta.env.BASE_URL;
     const parkrunIcon = L.icon({
-      iconUrl: "https://img.icons8.com/color/48/000000/running--v1.png",
+      iconUrl: `${baseUrl}icons/tree.svg`,
       iconSize: [40, 40],
       iconAnchor: [20, 40],
       popupAnchor: [0, -40],
     });
 
     const transportIcon = L.icon({
-      iconUrl: "https://img.icons8.com/color/48/000000/train.png",
+      iconUrl: `${baseUrl}icons/train.svg`,
       iconSize: [24, 24],
       iconAnchor: [12, 24],
       popupAnchor: [0, -24],
