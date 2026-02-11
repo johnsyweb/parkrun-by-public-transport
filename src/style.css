@@ -414,14 +414,19 @@ footer p {
 }
 
 footer a {
-  color: var(--parkrun-apricot);
-  text-decoration: none;
-  transition: opacity 0.2s ease;
+  color: var(--parkrun-white);
+  text-decoration: underline;
+  text-decoration-color: var(--parkrun-apricot);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
 }
 
 footer a:hover {
-  opacity: 0.8;
-  text-decoration: underline;
+  color: var(--parkrun-apricot);
+  text-decoration-color: var(--parkrun-white);
 }
 
 footer strong {
