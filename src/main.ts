@@ -142,7 +142,14 @@ class parkrunTransportApp {
             : "";
 
         return `
-          <div class="event-item" data-event-id="${event.id}">
+          <div
+            class="event-item"
+            data-event-id="${event.id}"
+            role="button"
+            tabindex="0"
+            aria-pressed="false"
+            aria-label="Focus map on ${event.properties.EventLongName}"
+          >
             <div class="event-name">${event.properties.EventLongName}</div>
             <div class="event-location">${event.properties.EventLocation}</div>
             <div class="event-transport">
@@ -156,8 +163,14 @@ class parkrunTransportApp {
       .join("");
 
     // Add click handlers to event items
-    eventList.querySelectorAll(".event-item").forEach((item) => {
+    eventList.querySelectorAll<HTMLElement>(".event-item").forEach((item) => {
       item.addEventListener("click", () => {
+        const eventId = parseInt(item.getAttribute("data-event-id") || "0");
+        this.focusOnEvent(eventId);
+      });
+      item.addEventListener("keydown", (event: KeyboardEvent) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
         const eventId = parseInt(item.getAttribute("data-event-id") || "0");
         this.focusOnEvent(eventId);
       });
@@ -260,8 +273,10 @@ class parkrunTransportApp {
     // Highlight selected event in list
     document.querySelectorAll(".event-item").forEach((item) => {
       item.classList.remove("selected");
+      item.setAttribute("aria-pressed", "false");
       if (parseInt(item.getAttribute("data-event-id") || "0") === eventId) {
         item.classList.add("selected");
+        item.setAttribute("aria-pressed", "true");
       }
     });
   }

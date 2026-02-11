@@ -195,11 +195,13 @@
             Clear Cache
           </button>
         </div>
-        <div class="location-status" id="location-status">
+        <div class="location-status" id="location-status" role="status">
           Location: not set
         </div>
         <div class="stats">
-          <span id="stats-text">Loading...</span>
+          <span id="stats-text" role="status" aria-live="polite">
+            Loading...
+          </span>
         </div>
       </header>
 
@@ -256,7 +258,7 @@
               </label>
             </div>
           </div>
-          <div id="event-list" class="event-list">
+          <div id="event-list" class="event-list" aria-live="polite">
             <p class="loading">Loading events...</p>
           </div>
         </div>
