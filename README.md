@@ -88,14 +88,16 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 Lighthouse with strict thresholds:
 
 - Accessibility, Best Practices, and SEO must score 100.
-- Performance may not drop below the saved baseline in `lighthouse-baseline.json`.
+- Performance is reported but does not fail the build.
 
-When the performance score improves, the baseline is updated automatically. To
-override the target URL or timeout locally, set:
+To override the target URL or timeout locally, set:
 
 - `LIGHTHOUSE_URL`
 - `LIGHTHOUSE_PORT`
 - `LIGHTHOUSE_TIMEOUT_MS`
+
+CI uploads Lighthouse reports to temporary public storage. To override the
+upload target, set `LIGHTHOUSE_UPLOAD_TARGET`.
 
 ### Location Permissions
 

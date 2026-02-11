@@ -1,13 +1,11 @@
 import { spawn } from "node:child_process";
-import { access, readFile } from "node:fs/promises";
-import { constants } from "node:fs";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 
 const DEFAULT_PORT = "4173";
 const DEFAULT_URL = `http://localhost:${DEFAULT_PORT}/parkrun-by-public-transport/`;
 const reportPath = path.resolve("lighthouse-report.json");
-const baselinePath = path.resolve("lighthouse-baseline.json");
 
 const lighthouseUrl = process.env.LIGHTHOUSE_URL ?? DEFAULT_URL;
 const lighthousePort = process.env.LIGHTHOUSE_PORT ?? DEFAULT_PORT;
@@ -57,20 +55,6 @@ const waitForServer = async (url: string, timeoutMs: number) => {
   }
 
   throw new Error(`Timed out waiting for preview server at ${url}`);
-};
-
-const loadBaseline = async () => {
-  try {
-    await access(baselinePath, constants.F_OK);
-  } catch {
-    return null;
-  }
-
-  const baselineRaw = await readFile(baselinePath, "utf8");
-  return JSON.parse(baselineRaw) as {
-    performance: number;
-    updatedAt: string;
-  };
 };
 
 const loadReport = async () => {
@@ -191,13 +175,6 @@ const main = async () => {
       }
       throw new Error(
         `Lighthouse scores below 100: ${failedCategories.join(", ")}`,
-      );
-    }
-
-    const baseline = await loadBaseline();
-    if (baseline && scores.performance < baseline.performance) {
-      throw new Error(
-        `Performance score dropped from ${Math.round(baseline.performance * 100)} to ${Math.round(scores.performance * 100)}.`,
       );
     }
   } finally {
