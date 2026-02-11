@@ -226,14 +226,14 @@
         </div>
       </header>
 
-      <div class="container">
+      <main class="container" id="main-content">
         <div
           id="map"
           role="region"
           aria-label="Map of parkrun events and public transport stops"
         ></div>
-        <div id="sidebar">
-          <h2>Events Near Transport</h2>
+        <aside id="sidebar" aria-labelledby="sidebar-title">
+          <h2 id="sidebar-title">Events Near Transport</h2>
           <div class="sidebar-section">
             <h3>Transport Modes</h3>
             <div class="mode-filters">
@@ -286,8 +286,8 @@
           <div id="event-list" class="event-list" aria-live="polite">
             <p class="loading">Loading events...</p>
           </div>
-        </div>
-      </div>
+        </aside>
+      </main>
 
       <footer>
         <p>
