@@ -94,6 +94,7 @@ class parkrunTransportApp {
       attribution: "© OpenStreetMap contributors",
       maxZoom: 19,
       crossOrigin: true,
+      detectRetina: true,
       updateWhenIdle: true,
       updateWhenZooming: false,
       keepBuffer: 2,
@@ -160,7 +161,6 @@ class parkrunTransportApp {
             role="button"
             tabindex="0"
             aria-pressed="false"
-            aria-label="Focus map on ${event.properties.EventLongName}"
           >
             <div class="event-name">${event.properties.EventLongName}</div>
             <div class="event-location">${event.properties.EventLocation}</div>

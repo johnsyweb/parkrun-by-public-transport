@@ -1,5 +1,6 @@
 node_modules
 dist
 data
+lighthouse-report.json
 .DS_Store
 package-lock.json

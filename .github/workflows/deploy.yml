@@ -43,6 +43,9 @@ jobs:
       - name: Test
         run: pnpm test
 
+      - name: Lighthouse
+        run: pnpm test:lighthouse
+
       - name: Format check
         run: pnpm format:check
 

@@ -39,6 +39,26 @@ body {
   min-height: 100vh;
 }
 
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--parkrun-apricot);
+  color: var(--parkrun-black);
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+  z-index: 1000;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
 .noscript {
   background: var(--parkrun-apricot);
   color: var(--parkrun-black);
@@ -314,7 +334,7 @@ footer {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.85rem;
-  color: #667eea;
+  color: var(--parkrun-aubergine);
   font-weight: 500;
 }
 
