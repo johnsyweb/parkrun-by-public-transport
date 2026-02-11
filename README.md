@@ -76,10 +76,26 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 - `pnpm run build` - Build for production
 - `pnpm run preview` - Preview production build
 - `pnpm run test` - Run unit tests
+- `pnpm run test:lighthouse` - Run Lighthouse against the preview build
 - `pnpm run test:watch` - Run tests in watch mode
 - `pnpm run lint` - Run ESLint
 - `pnpm run format` - Format with Prettier
 - `pnpm run check` - Run typecheck, lint, and format:check
+
+### Lighthouse Checks
+
+`pnpm run test:lighthouse` builds the site, serves it via `vite preview`, and runs
+Lighthouse with strict thresholds:
+
+- Accessibility, Best Practices, and SEO must score 100.
+- Performance may not drop below the saved baseline in `lighthouse-baseline.json`.
+
+When the performance score improves, the baseline is updated automatically. To
+override the target URL or timeout locally, set:
+
+- `LIGHTHOUSE_URL`
+- `LIGHTHOUSE_PORT`
+- `LIGHTHOUSE_TIMEOUT_MS`
 
 ### Location Permissions
 
