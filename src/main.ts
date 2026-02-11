@@ -47,6 +47,7 @@ class parkrunTransportApp {
   async init() {
     this.loadPreferences();
     await this.loadData();
+    await this.deferMapInit();
     this.initMap();
     await this.ensureLocationForSorting();
     this.calculateNearestStops();
@@ -54,6 +55,14 @@ class parkrunTransportApp {
     this.setupEventListeners();
     this.applyPreferencesToControls();
     this.updateStats();
+  }
+
+  private async deferMapInit() {
+    await new Promise<void>((resolve) => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => resolve());
+      });
+    });
   }
 
   private async loadData() {
