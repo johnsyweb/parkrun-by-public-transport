@@ -160,6 +160,21 @@ header h1 {
   background: rgba(255, 255, 255, 0.3);
 }
 
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--parkrun-apricot);
+  outline-offset: 2px;
+}
+
+.mode-filter:focus-within,
+.event-item:focus-within {
+  box-shadow: 0 0 0 3px rgba(247, 165, 65, 0.4);
+  border-radius: 8px;
+}
+
 .btn-secondary:disabled {
   opacity: 0.6;
   cursor: not-allowed;
