@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && pnpm generate:sitemap && vite build",
+    "build": "pnpm generate:icons && tsc && pnpm generate:sitemap && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -16,6 +16,7 @@
     "format:check": "prettier --check '**/*.{ts,tsx,json,css,html,md}'",
     "check": "pnpm typecheck && pnpm test && pnpm lint && pnpm format:check",
     "generate:sitemap": "tsx scripts/generate-sitemap.ts",
+    "generate:icons": "tsx scripts/generate-icons.ts",
     "generate:screenshot": "tsx scripts/generate-screenshot.ts",
     "prepare": "husky"
   },
@@ -30,6 +31,7 @@
     "husky": "^9.1.7",
     "playwright": "^1.58.1",
     "prettier": "^3.8.1",
+    "sharp": "^0.34.3",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.54.0",

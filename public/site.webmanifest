@@ -1,0 +1,26 @@
+{
+  "name": "parkrun by public transport",
+  "short_name": "parkrun PT",
+  "start_url": "/parkrun-by-public-transport/",
+  "scope": "/parkrun-by-public-transport/",
+  "display": "standalone",
+  "background_color": "#f5f5f5",
+  "theme_color": "#4c1a57",
+  "icons": [
+    {
+      "src": "icons/tree.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "icons/tree-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/tree-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
