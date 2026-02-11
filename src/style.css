@@ -192,6 +192,7 @@ textarea:focus-visible {
   font-size: 0.85rem;
   opacity: 0.9;
   margin-bottom: 0.75rem;
+  min-height: 1.2em;
 }
 
 .location-status.is-error {
@@ -202,6 +203,7 @@ textarea:focus-visible {
 .stats {
   font-size: 0.9rem;
   opacity: 0.95;
+  min-height: 1.2em;
 }
 
 .container {
