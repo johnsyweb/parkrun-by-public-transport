@@ -90,15 +90,19 @@ class parkrunTransportApp {
     // Initialize map centered on Victoria, Australia
     this.map = L.map("map").setView([-37.8136, 144.9631], 10);
 
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap contributors",
-      maxZoom: 19,
-      crossOrigin: true,
-      detectRetina: true,
-      updateWhenIdle: true,
-      updateWhenZooming: false,
-      keepBuffer: 2,
-    }).addTo(this.map);
+    L.tileLayer(
+      "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+      {
+        attribution: "© OpenStreetMap contributors © CARTO",
+        maxZoom: 19,
+        crossOrigin: true,
+        detectRetina: true,
+        updateWhenIdle: true,
+        updateWhenZooming: false,
+        keepBuffer: 2,
+        subdomains: "abcd",
+      },
+    ).addTo(this.map);
 
     this.eventMarkers.addTo(this.map);
     this.stopMarkers.addTo(this.map);
