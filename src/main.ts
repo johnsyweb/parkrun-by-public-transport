@@ -35,6 +35,7 @@ class parkrunTransportApp {
   private userLocationMarker: L.CircleMarker | null = null;
   private hasAutoPannedToUser: boolean = false;
   private readonly preferencesKey: string = "parkrun-pt-preferences";
+  private distanceUpdateTimer: number | null = null;
   private selectedModes: string[] = [
     "METRO TRAIN",
     "REGIONAL TRAIN",
@@ -317,6 +318,21 @@ class parkrunTransportApp {
         const newDistance = parseFloat(slider.value);
         distanceValue.textContent = newDistance.toFixed(1);
         this.maxDistance = newDistance * 1000; // Convert to meters
+        if (this.distanceUpdateTimer !== null) {
+          window.clearTimeout(this.distanceUpdateTimer);
+        }
+        this.distanceUpdateTimer = window.setTimeout(() => {
+          this.calculateNearestStops();
+          this.renderEventList();
+          this.updateStats();
+          this.savePreferences();
+        }, 150);
+      });
+      slider.addEventListener("change", () => {
+        if (this.distanceUpdateTimer !== null) {
+          window.clearTimeout(this.distanceUpdateTimer);
+          this.distanceUpdateTimer = null;
+        }
         this.calculateNearestStops();
         this.renderEventList();
         this.updateStats();
