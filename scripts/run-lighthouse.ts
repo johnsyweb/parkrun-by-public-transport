@@ -12,6 +12,9 @@ const baselinePath = path.resolve("lighthouse-baseline.json");
 const lighthouseUrl = process.env.LIGHTHOUSE_URL ?? DEFAULT_URL;
 const lighthousePort = process.env.LIGHTHOUSE_PORT ?? DEFAULT_PORT;
 const waitTimeoutMs = Number(process.env.LIGHTHOUSE_TIMEOUT_MS ?? "60000");
+const uploadTarget =
+  process.env.LIGHTHOUSE_UPLOAD_TARGET ??
+  (process.env.CI ? "temporary-public-storage" : "");
 
 const previewArgs = [
   path.resolve("node_modules/vite/bin/vite.js"),
@@ -127,12 +130,24 @@ const logFailingAudits = (
     console.log(`- ${id}: ${audit?.title ?? "Untitled"}`);
     const items = audit?.details?.items ?? [];
     for (const item of items) {
+      const description = item.description as string | undefined;
+      const sourceLocation = item.sourceLocation as
+        | { url?: string; line?: number; column?: number }
+        | undefined;
       const node = item.node as
         | { selector?: string; snippet?: string }
         | undefined;
       const url = (item.url as string | undefined) ?? "";
       const source = node?.selector || node?.snippet || url;
-      if (source) {
+      if (description) {
+        console.log(`  - ${description}`);
+      }
+      if (sourceLocation?.url) {
+        const line = sourceLocation.line ?? 0;
+        const column = sourceLocation.column ?? 0;
+        console.log(`  - source: ${sourceLocation.url}:${line}:${column}`);
+      }
+      if (!description && source) {
         console.log(`  - ${source}`);
       }
     }
@@ -153,6 +168,7 @@ const main = async () => {
       "--output=json",
       `--output-path=${reportPath}`,
       `--only-categories=${categories.join(",")}`,
+      ...(uploadTarget ? [`--upload-target=${uploadTarget}`] : []),
       "--quiet",
       "--chrome-flags=--headless=new --no-sandbox",
     ]);
