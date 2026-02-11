@@ -39,6 +39,14 @@ body {
   min-height: 100vh;
 }
 
+.noscript {
+  background: var(--parkrun-apricot);
+  color: var(--parkrun-black);
+  padding: 0.75rem 2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
 header {
   background-color: var(--parkrun-aubergine);
   color: var(--parkrun-white);

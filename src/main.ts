@@ -12,7 +12,6 @@ import {
   getUserDistance,
   sortEvents,
 } from "./eventUtils";
-import "./style.css";
 
 // Fix Leaflet default marker icon paths
 const iconProto = L.Icon.Default.prototype as { _getIconUrl?: () => string };
