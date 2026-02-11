@@ -70,12 +70,25 @@ const loadBaseline = async () => {
   };
 };
 
-const loadScores = async () => {
+const loadReport = async () => {
   const reportRaw = await readFile(reportPath, "utf8");
-  const report = JSON.parse(reportRaw) as {
-    categories: Record<string, { score?: number }>;
+  return JSON.parse(reportRaw) as {
+    categories: Record<
+      string,
+      { score?: number; auditRefs?: { id: string }[] }
+    >;
+    audits: Record<
+      string,
+      {
+        score?: number | null;
+        title?: string;
+        details?: { items?: Array<Record<string, unknown>> };
+      }
+    >;
   };
+};
 
+const getScores = (report: Awaited<ReturnType<typeof loadReport>>) => {
   const getScore = (key: string) => report.categories?.[key]?.score ?? 0;
 
   return {
@@ -84,6 +97,46 @@ const loadScores = async () => {
     bestPractices: getScore("best-practices"),
     seo: getScore("seo"),
   };
+};
+
+const logScores = (scores: ReturnType<typeof getScores>) => {
+  const asPercent = (value: number) => Math.round(value * 100);
+  console.log("Lighthouse scores:");
+  console.log(`- performance: ${asPercent(scores.performance)}`);
+  console.log(`- accessibility: ${asPercent(scores.accessibility)}`);
+  console.log(`- best-practices: ${asPercent(scores.bestPractices)}`);
+  console.log(`- seo: ${asPercent(scores.seo)}`);
+};
+
+const logFailingAudits = (
+  report: Awaited<ReturnType<typeof loadReport>>,
+  categoryId: "best-practices" | "accessibility" | "seo",
+) => {
+  const category = report.categories?.[categoryId];
+  if (!category?.auditRefs) return;
+
+  const failingAudits = category.auditRefs
+    .map((ref) => ({ id: ref.id, audit: report.audits?.[ref.id] }))
+    .filter((entry) => entry.audit && entry.audit.score !== null)
+    .filter((entry) => (entry.audit?.score ?? 1) < 1);
+
+  if (failingAudits.length === 0) return;
+
+  console.log(`\nFailing ${categoryId} audits:`);
+  for (const { id, audit } of failingAudits) {
+    console.log(`- ${id}: ${audit?.title ?? "Untitled"}`);
+    const items = audit?.details?.items ?? [];
+    for (const item of items) {
+      const node = item.node as
+        | { selector?: string; snippet?: string }
+        | undefined;
+      const url = (item.url as string | undefined) ?? "";
+      const source = node?.selector || node?.snippet || url;
+      if (source) {
+        console.log(`  - ${source}`);
+      }
+    }
+  }
 };
 
 const main = async () => {
@@ -104,7 +157,9 @@ const main = async () => {
       "--chrome-flags=--headless=new --no-sandbox",
     ]);
 
-    const scores = await loadScores();
+    const report = await loadReport();
+    const scores = getScores(report);
+    logScores(scores);
 
     const failedCategories = [
       scores.accessibility < 1 ? "accessibility" : null,
@@ -113,6 +168,11 @@ const main = async () => {
     ].filter(Boolean) as string[];
 
     if (failedCategories.length > 0) {
+      for (const category of failedCategories) {
+        if (category === "best-practices" || category === "accessibility") {
+          logFailingAudits(report, category);
+        }
+      }
       throw new Error(
         `Lighthouse scores below 100: ${failedCategories.join(", ")}`,
       );
