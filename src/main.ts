@@ -199,16 +199,16 @@ class parkrunTransportApp {
     const baseUrl = import.meta.env.BASE_URL;
     const parkrunIcon = L.icon({
       iconUrl: `${baseUrl}icons/tree.svg`,
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-      popupAnchor: [0, -40],
+      iconSize: [48, 48],
+      iconAnchor: [24, 48],
+      popupAnchor: [0, -48],
     });
 
     const transportIcon = L.icon({
       iconUrl: `${baseUrl}icons/train.svg`,
-      iconSize: [24, 24],
-      iconAnchor: [12, 24],
-      popupAnchor: [0, -24],
+      iconSize: [48, 48],
+      iconAnchor: [24, 48],
+      popupAnchor: [0, -48],
     });
 
     events.forEach((event) => {

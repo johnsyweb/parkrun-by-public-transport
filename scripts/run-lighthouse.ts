@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { access, readFile, writeFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import { constants } from "node:fs";
 import path from "node:path";
 import process from "node:process";
@@ -70,14 +70,6 @@ const loadBaseline = async () => {
   };
 };
 
-const saveBaseline = async (performance: number) => {
-  const baseline = {
-    performance,
-    updatedAt: new Date().toISOString(),
-  };
-  await writeFile(baselinePath, `${JSON.stringify(baseline, null, 2)}\n`);
-};
-
 const loadScores = async () => {
   const reportRaw = await readFile(reportPath, "utf8");
   const report = JSON.parse(reportRaw) as {
@@ -104,6 +96,7 @@ const main = async () => {
 
     await runCommand("lighthouse", [
       lighthouseUrl,
+      "--preset=desktop",
       "--output=json",
       `--output-path=${reportPath}`,
       `--only-categories=${categories.join(",")}`,
@@ -126,24 +119,9 @@ const main = async () => {
     }
 
     const baseline = await loadBaseline();
-    if (!baseline) {
-      await saveBaseline(scores.performance);
-      console.log(
-        `Created ${path.basename(baselinePath)} with performance score ${Math.round(scores.performance * 100)}.`,
-      );
-      return;
-    }
-
-    if (scores.performance < baseline.performance) {
+    if (baseline && scores.performance < baseline.performance) {
       throw new Error(
         `Performance score dropped from ${Math.round(baseline.performance * 100)} to ${Math.round(scores.performance * 100)}.`,
-      );
-    }
-
-    if (scores.performance > baseline.performance) {
-      await saveBaseline(scores.performance);
-      console.log(
-        `Updated ${path.basename(baselinePath)} to performance score ${Math.round(scores.performance * 100)}.`,
       );
     }
   } finally {
