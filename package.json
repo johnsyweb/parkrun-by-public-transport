@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write '**/*.{ts,tsx,json,css,html,md}'",
+    "format": "prettier --write '**/*.{ts,tsx,json,css,html,md,yml}'",
     "format:check": "prettier --check '**/*.{ts,tsx,json,css,html,md}'",
     "check": "pnpm typecheck && pnpm test && pnpm test:lighthouse && pnpm lint && pnpm format:check",
     "generate:sitemap": "tsx scripts/generate-sitemap.ts",
