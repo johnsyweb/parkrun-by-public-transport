@@ -12,8 +12,6 @@ updates:
       - "dependencies"
     pull-request-branch-name:
       separator: "/"
-    auto-merge: true
-    auto-merge-strategy: "squash"
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
