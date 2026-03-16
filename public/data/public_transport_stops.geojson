@@ -13,7 +13,7 @@
   <head>
     <meta charset="utf-8" />
       <meta name="csrf_field_name" content="_csrf_token" />
-      <meta name="_csrf_token" content="ImYyY2Y4MDFhMzlhOTFiMDhjYTAzZGY1YzIxZTBhOTcwY2Q1NGFhNDci.aa6CAA.brcKnQkHtyagWRXvQ-Sywm32Sb8" />
+      <meta name="_csrf_token" content="ImNlZjg0MDE4ZGY5YzRkNTBkZDVjMDI5YmEzY2IyOTBlMDc4NjU3MmEi.abe-4g.NBuZXGwO8tkix0NUJU8ke2sHG-I" />
 
       <meta name="generator" content="ckan 2.10.4" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -197,6 +197,11 @@
                   <li class="nav-item">
                     <a class="nav-link"
                        href="/News-and-Updates/Improving-the-Usability-of-GTFS-Data">Improving the Usability of GTFS Data</a>
+                  </li>
+                
+                  <li class="nav-item">
+                    <a class="nav-link"
+                       href="/News-and-Updates/TIRTL-Traffic-Counts-and-Vehicle-Classification---Data-Release">TIRTL Traffic Counts and Vehicle Classification - Data Release</a>
                   </li>
                 
                   <li class="nav-item">
@@ -422,6 +427,11 @@
                         
                           <li class="nav-item">
                             <a class="nav-link"
+                               href="/News-and-Updates/Updates-to-Bus-and-Regional-Travel-Information">Updates to Bus and Regional Travel Information</a>
+                          </li>
+                        
+                          <li class="nav-item">
+                            <a class="nav-link"
                                href="/News-and-Updates/Bicycle-Infrastructure-Network---Data-Release">Bicycle Infrastructure Network - Data Release</a>
                           </li>
                         
@@ -445,17 +455,17 @@
                                href="/News-and-Updates/Improving-Rail-Replacement-Information">Improving Rail Replacement Information</a>
                           </li>
                         
-                          <li class="nav-item">
-                            <a class="nav-link"
-                               href="/News-and-Updates/Improving-Tram-Destination-Information">Improving Tram Destination Information</a>
-                          </li>
-                        
                       </div>
                     
                       <div class="mega-menu-links-group">
                         
                         
 
+                        
+                          <li class="nav-item">
+                            <a class="nav-link"
+                               href="/News-and-Updates/Smoother-Rides">Smoother Rides</a>
+                          </li>
                         
                           <li class="nav-item">
                             <a class="nav-link"
