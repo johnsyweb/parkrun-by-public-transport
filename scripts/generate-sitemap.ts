@@ -1,7 +1,8 @@
 import { writeFileSync } from "fs";
-import { resolve } from "path";
+import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
+
+import { joinBaseUrlPath } from "../src/utils/joinBaseUrlPath";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,7 +17,7 @@ function generateSitemap() {
 ${pages
   .map(
     (page) => `  <url>
-    <loc>${baseUrl}${page}</loc>
+    <loc>${joinBaseUrlPath(baseUrl, page)}</loc>
     <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${page === "/" ? "1.0" : "0.8"}</priority>

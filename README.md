@@ -73,7 +73,7 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 ### Scripts
 
 - `pnpm run dev` - Start development server
-- `pnpm run build` - Build for production
+- `pnpm run build` - Build for production (generates icons and `public/sitemap.xml`, then runs Vite)
 - `pnpm run preview` - Preview production build
 - `pnpm run test` - Run unit tests
 - `pnpm run test:lighthouse` - Run Lighthouse against the preview build

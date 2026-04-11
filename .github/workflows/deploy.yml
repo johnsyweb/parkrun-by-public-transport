@@ -80,7 +80,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
+      - name: Build (icons, TypeScript, sitemap, Vite)
         run: pnpm build
         env:
           NODE_ENV: production
