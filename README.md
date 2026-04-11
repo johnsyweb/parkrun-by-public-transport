@@ -19,11 +19,20 @@ The application uses locally bundled data files:
 - **parkrun events**: `public/data/events.json` (cached from parkrun.com periodically)
 - **Transport Victoria stops**: `public/data/public_transport_stops.geojson` (cached from Open Data Portal)
 
+Upstream download URLs live in `scripts/fetch-public-data.sh` (used by CI and when refreshing data locally). The Transport Victoria CKAN **resource id** can change when they republish a file; if scheduled updates start failing with HTTP 4xx, check that script and the [Public Transport Lines and Stops](https://opendata.transport.vic.gov.au/dataset/public-transport-lines-and-stops) dataset for a new GeoJSON resource URL.
+
 Data is served from the public directory and cached in browser localStorage for 1 week to minimize network requests and improve performance.
 
 ### Data Updates
 
-Data files are automatically updated every Monday at 08:00 UTC via GitHub Actions. Manual updates can be triggered via the "Update Data Files" workflow dispatch in GitHub Actions.
+Data files are automatically updated every Monday at 08:00 UTC via GitHub Actions. Manual updates can be triggered via the "Update Data Files" workflow dispatch in GitHub Actions. Downloads use `curl -f` (fail on HTTP errors) and `pnpm validate:public-data` must pass before any commit is pushed—so HTML error pages are not saved as `.geojson`.
+
+To refresh data locally after changing URLs or when testing:
+
+```bash
+bash scripts/fetch-public-data.sh
+pnpm validate:public-data
+```
 
 ## Development
 
@@ -80,7 +89,8 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 - `pnpm run test:watch` - Run tests in watch mode
 - `pnpm run lint` - Run ESLint
 - `pnpm run format` - Format with Prettier
-- `pnpm run check` - Run typecheck, lint, and format:check
+- `pnpm run validate:public-data` - Verify `public/data/*.json` and `*.geojson` parse and match expected shapes
+- `pnpm run check` - Run typecheck, validate public data, tests, Lighthouse, lint, and format check
 
 ### Lighthouse Checks
 
@@ -137,15 +147,18 @@ The app uses browser localStorage to cache data files:
 
 ```
 .
+├── scripts/
+│   ├── fetch-public-data.sh      # Upstream URLs; used by CI to download data
+│   └── validate-public-data.ts   # CI/local check for public/data shape
 ├── src/
-│   ├── __tests__/
-│   │   └── eventUtils.test.ts    # Unit tests
+│   ├── __tests__/                # Unit tests (Vitest)
 │   ├── main.ts                   # Main application logic
 │   ├── eventUtils.ts             # Reusable event utilities
 │   ├── dataCache.ts              # Browser-side data caching
 │   ├── types.ts                  # TypeScript type definitions
 │   ├── utils/                    # Shared helpers (URLs, JSON parsing, errors)
 │   └── style.css                 # Styles
+├── public/data/                  # Bundled parkrun + transport datasets
 ├── index.html                    # Entry point
 ├── package.json
 └── tsconfig.json

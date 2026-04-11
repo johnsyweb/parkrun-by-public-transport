@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { dataLoadErrorMessage } from "../utils/dataLoadErrorMessage";
+import { assertParkrunEventsData } from "../utils/assertParkrunEventsData";
 import { assertTransportStopsData } from "../utils/assertTransportStopsData";
+import { dataLoadErrorMessage } from "../utils/dataLoadErrorMessage";
 import { parseJsonFromResponse } from "../utils/parseFetchJson";
 
 describe("parseJsonFromResponse", () => {
@@ -22,6 +23,22 @@ describe("parseJsonFromResponse", () => {
     const response = new Response("");
     await expect(parseJsonFromResponse(response, "empty")).rejects.toThrow(
       /empty response body/,
+    );
+  });
+});
+
+describe("assertParkrunEventsData", () => {
+  it("accepts nested events.features array", () => {
+    const data = {
+      events: { type: "FeatureCollection", features: [] },
+    };
+    expect(() => assertParkrunEventsData(data, "test")).not.toThrow();
+  });
+
+  it("rejects missing events or features array", () => {
+    expect(() => assertParkrunEventsData({}, "t")).toThrow(/events object/);
+    expect(() => assertParkrunEventsData({ events: {} }, "t")).toThrow(
+      /events\.features/,
     );
   });
 });
