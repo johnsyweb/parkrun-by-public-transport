@@ -122,7 +122,8 @@ The app uses browser localStorage to cache data files:
 
 - Cache expires after 1 week
 - Check cache status in browser console
-- Clear cache: Open browser DevTools → Console → Run: `DataCache.clearCache()`
+- Clear cache: Open browser DevTools → Console → Run: `DataCache.clearCache()` (this removes parkrun data, the shared transport entry, and per-mode transport caches)
+- If the app reports that data could not be read, try a refresh; if it persists, clear cache or site data for this origin and reload
 - View cache info: `DataCache.getCacheInfo()`
 
 ## Tech Stack
@@ -143,6 +144,7 @@ The app uses browser localStorage to cache data files:
 │   ├── eventUtils.ts             # Reusable event utilities
 │   ├── dataCache.ts              # Browser-side data caching
 │   ├── types.ts                  # TypeScript type definitions
+│   ├── utils/                    # Shared helpers (URLs, JSON parsing, errors)
 │   └── style.css                 # Styles
 ├── index.html                    # Entry point
 ├── package.json

@@ -1,6 +1,8 @@
 /// <reference types="vite/client" />
 
 import type { TransportStop, TransportStopsData } from "./types";
+import { assertTransportStopsData } from "./utils/assertTransportStopsData";
+import { parseJsonFromResponse } from "./utils/parseFetchJson";
 
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -47,7 +49,10 @@ export class DataCache {
       );
     }
 
-    const data = await response.json();
+    const data = await parseJsonFromResponse<T>(
+      response,
+      `${cacheKey} (${url})`,
+    );
 
     // Cache the data (skip if too large)
     try {
@@ -134,7 +139,12 @@ export class DataCache {
       throw new Error(`Failed to fetch transport stops: ${response.status}`);
     }
 
-    const data = (await response.json()) as TransportStopsData;
+    const raw = await parseJsonFromResponse<unknown>(
+      response,
+      "public_transport_stops.geojson",
+    );
+    assertTransportStopsData(raw, "public_transport_stops.geojson");
+    const data = raw;
 
     // Split by mode and cache separately
     const modeGroups: Record<string, TransportStop[]> = {};
@@ -191,6 +201,16 @@ export class DataCache {
   static clearCache() {
     localStorage.removeItem("parkrun-events");
     localStorage.removeItem("transport-stops");
+    const keysToRemove: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("transport-stops-")) {
+        keysToRemove.push(key);
+      }
+    }
+    for (const key of keysToRemove) {
+      localStorage.removeItem(key);
+    }
     console.log("Cache cleared");
   }
 

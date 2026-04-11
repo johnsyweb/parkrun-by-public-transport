@@ -6,6 +6,7 @@ import type {
   EventWithNearestStop,
 } from "./types";
 import { DataCache } from "./dataCache";
+import { dataLoadErrorMessage } from "./utils/dataLoadErrorMessage";
 import {
   attachNearestStops,
   countEventsNearTransport,
@@ -79,10 +80,8 @@ class parkrunTransportApp {
       console.log(`Loaded ${this.parkrunEvents.length} parkrun events`);
       console.log(`Loaded ${this.transportStops.length} transport stops`);
     } catch (error) {
-      console.error("Error loading data:", error);
-      this.showError(
-        "Failed to load data. Please check your internet connection.",
-      );
+      console.warn("Could not load application data:", error);
+      this.showError(dataLoadErrorMessage(error));
     }
   }
 
@@ -457,8 +456,8 @@ class parkrunTransportApp {
       this.renderEventList();
       this.updateStats();
     } catch (error) {
-      console.error("Error loading transport stops:", error);
-      this.showError("Failed to load transport stops. Please try again.");
+      console.warn("Could not load transport stops:", error);
+      this.showError(dataLoadErrorMessage(error));
     }
   }
 
