@@ -22,14 +22,11 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
       - name: Download public data (parkrun + Transport Victoria)
         run: bash scripts/fetch-public-data.sh
 
       - name: Validate downloaded data
-        run: pnpm validate:public-data
+        run: aube run validate:public-data
 
       - name: Check for changes
         id: check-changes

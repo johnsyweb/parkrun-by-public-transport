@@ -31,26 +31,23 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
       - name: Type check
-        run: pnpm typecheck
+        run: aube run typecheck
 
       - name: Validate public data files
-        run: pnpm validate:public-data
+        run: aube run validate:public-data
 
       - name: Lint
-        run: pnpm lint
+        run: aube run lint
 
       - name: Test
-        run: pnpm test
+        run: aube test
 
       - name: Lighthouse
-        run: pnpm test:lighthouse
+        run: aube run test:lighthouse
 
       - name: Format check
-        run: pnpm format:check
+        run: aube run format:check
 
   build:
     runs-on: ubuntu-latest
@@ -65,25 +62,22 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
       - name: Download public data (parkrun + Transport Victoria)
         run: bash scripts/fetch-public-data.sh
 
       - name: Validate downloaded data
-        run: pnpm validate:public-data
+        run: aube run validate:public-data
 
       - name: Build (icons, TypeScript, sitemap, Vite)
-        run: pnpm build
+        run: aube run build
         env:
           NODE_ENV: production
 
       - name: Install Playwright browsers
-        run: pnpm exec playwright install chromium
+        run: aube exec playwright install chromium
 
       - name: Generate OG image
-        run: pnpm generate:screenshot
+        run: aube run generate:screenshot
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
