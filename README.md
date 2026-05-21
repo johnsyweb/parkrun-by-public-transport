@@ -25,13 +25,13 @@ Data is served from the public directory and cached in browser localStorage for 
 
 ### Data Updates
 
-Data files are automatically updated every Monday at 08:00 UTC via GitHub Actions. Manual updates can be triggered via the "Update Data Files" workflow dispatch in GitHub Actions. Downloads use `curl -f` (fail on HTTP errors) and `pnpm validate:public-data` must pass before any commit is pushed—so HTML error pages are not saved as `.geojson`.
+Data files are automatically updated every Monday at 08:00 UTC via GitHub Actions. Manual updates can be triggered via the "Update Data Files" workflow dispatch in GitHub Actions. Downloads use `curl -f` (fail on HTTP errors) and `aube run validate:public-data` must pass before any commit is pushed—so HTML error pages are not saved as `.geojson`.
 
 To refresh data locally after changing URLs or when testing:
 
 ```bash
 bash scripts/fetch-public-data.sh
-pnpm validate:public-data
+aube run validate:public-data
 ```
 
 ## Development
@@ -55,16 +55,15 @@ New to the project? Start here:
    curl https://mise.run | sh
    ```
 
-2. Install project dependencies (Node.js and pnpm will be installed automatically by mise):
+2. Install project tools and runtime (Node.js and aube will be installed automatically by mise):
    ```bash
    mise install
-   pnpm install
    ```
 
-The `.tool-versions` file specifies the required versions:
+The `.mise.toml` file specifies the required versions:
 
-- Node.js LTS (latest stable)
-- pnpm latest
+- Node.js LTS
+- aube latest
 
 > [!NOTE]
 > GitHub Actions uses the same versions via `jdx/mise-action@v2`, ensuring consistent environments between local development and CI/CD.
@@ -72,7 +71,7 @@ The `.tool-versions` file specifies the required versions:
 ### Development Server
 
 ```bash
-pnpm run dev
+aube run dev
 ```
 
 The app will be available at [http://localhost:5173/](http://localhost:5173/)
@@ -81,20 +80,20 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 
 ### Scripts
 
-- `pnpm run dev` - Start development server
-- `pnpm run build` - Build for production (generates icons and `public/sitemap.xml`, then runs Vite)
-- `pnpm run preview` - Preview production build
-- `pnpm run test` - Run unit tests
-- `pnpm run test:lighthouse` - Run Lighthouse against the preview build
-- `pnpm run test:watch` - Run tests in watch mode
-- `pnpm run lint` - Run ESLint
-- `pnpm run format` - Format with Prettier
-- `pnpm run validate:public-data` - Verify `public/data/*.json` and `*.geojson` parse and match expected shapes
-- `pnpm run check` - Run typecheck, validate public data, tests, Lighthouse, lint, and format check
+- `aube run dev` - Start development server
+- `aube run build` - Build for production (generates icons and `public/sitemap.xml`, then runs Vite)
+- `aube run preview` - Preview production build
+- `aube test` - Run unit tests
+- `aube run test:lighthouse` - Run Lighthouse against the preview build
+- `aube run test:watch` - Run tests in watch mode
+- `aube run lint` - Run ESLint
+- `aube run format` - Format with Prettier
+- `aube run validate:public-data` - Verify `public/data/*.json` and `*.geojson` parse and match expected shapes
+- `aube run check` - Run typecheck, validate public data, tests, Lighthouse, lint, and format check
 
 ### Lighthouse Checks
 
-`pnpm run test:lighthouse` builds the site, serves it via `vite preview`, and runs
+`aube run test:lighthouse` builds the site, serves it via `vite preview`, and runs
 Lighthouse with strict thresholds:
 
 - Accessibility, Best Practices, and SEO must score 100.
@@ -122,7 +121,7 @@ README, UI text, or a small CSS tweak.
 
 Before opening a PR:
 
-1. Run `pnpm run check`.
+1. Run `aube run check`.
 2. Describe the user-visible behavior change in the PR.
 3. Add screenshots for UI changes when possible.
 
