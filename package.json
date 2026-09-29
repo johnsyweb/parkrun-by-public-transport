@@ -17,6 +17,7 @@
     "format:check": "prettier --check '**/*.{ts,tsx,json,css,html,md}'",
     "check": "aube run typecheck && aube run validate:public-data && aube test && aube run test:lighthouse && aube run lint && aube run format:check",
     "validate:public-data": "tsx scripts/validate-public-data.ts",
+    "fetch:public-data": "tsx scripts/fetch-public-data.ts",
     "generate:sitemap": "tsx scripts/generate-sitemap.ts",
     "generate:icons": "tsx scripts/generate-icons.ts",
     "generate:screenshot": "tsx scripts/generate-screenshot.ts",

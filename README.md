@@ -19,18 +19,18 @@ The application uses locally bundled data files:
 - **parkrun events**: `public/data/events.json` (cached from parkrun.com periodically)
 - **Transport Victoria stops**: `public/data/public_transport_stops.geojson` (cached from Open Data Portal)
 
-`scripts/fetch-public-data.sh` (used by CI and when refreshing data locally) resolves the Transport Victoria stops download URL via the CKAN `package_show` API for the [Public Transport Lines and Stops](https://opendata.transport.vic.gov.au/dataset/public-transport-lines-and-stops) dataset, so republished resource UUIDs do not break fetches.
+`aube run fetch:public-data` (used by CI and when refreshing data locally) resolves the Transport Victoria stops download URL via the CKAN `package_show` API for the [Public Transport Lines and Stops](https://opendata.transport.vic.gov.au/dataset/public-transport-lines-and-stops) dataset, so republished resource UUIDs do not break fetches.
 
 Data is served from the public directory and cached in browser localStorage for 1 week to minimize network requests and improve performance.
 
 ### Data Updates
 
-Data files are automatically updated every Monday at 08:00 UTC via GitHub Actions. Manual updates can be triggered via the "Update Data Files" workflow dispatch in GitHub Actions. Downloads use `curl -f` (fail on HTTP errors) and `aube run validate:public-data` must pass before any commit is pushed—so HTML error pages are not saved as `.geojson`.
+Data files are automatically updated every Monday at 08:00 UTC via GitHub Actions. Manual updates can be triggered via the "Update Data Files" workflow dispatch in GitHub Actions. Downloads fail closed on HTTP errors, and `aube run validate:public-data` must pass before any commit is pushed—so HTML error pages are not saved as `.geojson`.
 
 To refresh data locally after changing URLs or when testing:
 
 ```bash
-bash scripts/fetch-public-data.sh
+aube run fetch:public-data
 aube run validate:public-data
 ```
 
@@ -89,6 +89,7 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 - `aube run lint` - Run ESLint
 - `aube run format` - Format with Prettier
 - `aube run validate:public-data` - Verify `public/data/*.json` and `*.geojson` parse and match expected shapes
+- `aube run fetch:public-data` - Download parkrun events and Transport Victoria stops into `public/data`
 - `aube run check` - Run typecheck, validate public data, tests, Lighthouse, lint, and format check
 
 ### Lighthouse Checks
@@ -147,7 +148,7 @@ The app uses browser localStorage to cache data files:
 ```
 .
 ├── scripts/
-│   ├── fetch-public-data.sh      # Resolve CKAN URL + download; used by CI
+│   ├── fetch-public-data.ts      # Resolve CKAN URL + download; used by CI
 │   └── validate-public-data.ts   # CI/local check for public/data shape
 ├── src/
 │   ├── __tests__/                # Unit tests (Vitest)

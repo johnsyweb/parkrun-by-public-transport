@@ -28,7 +28,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download public data (parkrun + Transport Victoria)
-        run: bash scripts/fetch-public-data.sh
+        run: aube run fetch:public-data
 
       - name: Validate downloaded data
         run: aube run validate:public-data
