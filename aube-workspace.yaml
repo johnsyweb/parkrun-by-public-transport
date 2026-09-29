@@ -1,6 +1,11 @@
 paranoid: true
 minimumReleaseAge: 10080  # 7 days in minutes (7 * 24 * 60)
 
+# why-is-node-running@3.2.2: npm provenance present on 3.2.0 but not on 3.2.2
+# (known aube default exception; pin locally for this aube version).
+trustPolicyExclude:
+  - "why-is-node-running@3.2.2"
+
 allowBuilds:
   sharp: true
   esbuild: true
