@@ -19,7 +19,7 @@ The application uses locally bundled data files:
 - **parkrun events**: `public/data/events.json` (cached from parkrun.com periodically)
 - **Transport Victoria stops**: `public/data/public_transport_stops.geojson` (cached from Open Data Portal)
 
-Upstream download URLs live in `scripts/fetch-public-data.sh` (used by CI and when refreshing data locally). The Transport Victoria CKAN **resource id** can change when they republish a file; if scheduled updates start failing with HTTP 4xx, check that script and the [Public Transport Lines and Stops](https://opendata.transport.vic.gov.au/dataset/public-transport-lines-and-stops) dataset for a new GeoJSON resource URL.
+`scripts/fetch-public-data.sh` (used by CI and when refreshing data locally) resolves the Transport Victoria stops download URL via the CKAN `package_show` API for the [Public Transport Lines and Stops](https://opendata.transport.vic.gov.au/dataset/public-transport-lines-and-stops) dataset, so republished resource UUIDs do not break fetches.
 
 Data is served from the public directory and cached in browser localStorage for 1 week to minimize network requests and improve performance.
 
@@ -147,7 +147,7 @@ The app uses browser localStorage to cache data files:
 ```
 .
 ├── scripts/
-│   ├── fetch-public-data.sh      # Upstream URLs; used by CI to download data
+│   ├── fetch-public-data.sh      # Resolve CKAN URL + download; used by CI
 │   └── validate-public-data.ts   # CI/local check for public/data shape
 ├── src/
 │   ├── __tests__/                # Unit tests (Vitest)
