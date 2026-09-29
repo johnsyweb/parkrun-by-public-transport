@@ -72,13 +72,14 @@ async function generateScreenshot() {
     });
     await page.waitForTimeout(1000);
 
-    // App screenshots are separate from the designed social banner
-    // (public/og-image.png), which Vite copies into dist unchanged.
+    // Social preview and docs use this capture (see og:image in index.html).
     const desktopPath = resolve(distPath, "screenshot-desktop.png");
     await page.screenshot({
       path: desktopPath,
       type: "png",
     });
+    // Keep public/ in sync so local Vite builds ship the latest capture.
+    await cp(desktopPath, resolve(rootDir, "public/screenshot-desktop.png"));
     console.log("✓ Generated screenshot-desktop.png");
 
     await browser.close();
