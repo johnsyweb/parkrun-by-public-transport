@@ -48,9 +48,9 @@ class parkrunTransportApp {
 
   async init() {
     this.loadPreferences();
-    await this.loadData();
     await this.deferMapInit();
     this.initMap();
+    await this.loadData();
     await this.ensureLocationForSorting();
     this.calculateNearestStops();
     this.renderEventList();

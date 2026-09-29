@@ -90,6 +90,7 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 - `aube run format` - Format with Prettier
 - `aube run validate:public-data` - Verify `public/data/*.json` and `*.geojson` parse and match expected shapes
 - `aube run fetch:public-data` - Download parkrun events and Transport Victoria stops into `public/data`
+- `aube run generate:screenshot` - Capture `dist/screenshot-desktop.png` of the running app (requires Playwright Chromium: `aube exec playwright install chromium`). Does **not** replace `public/og-image.png`, which is the designed social-share banner.
 - `aube run check` - Run typecheck, validate public data, tests, Lighthouse, lint, and format check
 
 ### Lighthouse Checks
@@ -149,6 +150,7 @@ The app uses browser localStorage to cache data files:
 .
 ├── scripts/
 │   ├── fetch-public-data.ts      # Resolve CKAN URL + download; used by CI
+│   ├── generate-screenshot.ts    # App UI capture → dist/screenshot-desktop.png
 │   └── validate-public-data.ts   # CI/local check for public/data shape
 ├── src/
 │   ├── __tests__/                # Unit tests (Vitest)
@@ -158,7 +160,9 @@ The app uses browser localStorage to cache data files:
 │   ├── types.ts                  # TypeScript type definitions
 │   ├── utils/                    # Shared helpers (URLs, JSON parsing, errors)
 │   └── style.css                 # Styles
-├── public/data/                  # Bundled parkrun + transport datasets
+├── public/
+│   ├── data/                     # Bundled parkrun + transport datasets
+│   └── og-image.png              # Designed social-share banner (not a screenshot)
 ├── index.html                    # Entry point
 ├── package.json
 └── tsconfig.json
