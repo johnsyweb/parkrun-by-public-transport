@@ -2046,18 +2046,6 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 145.50952273, -38.08460477 ]
-			},
-			"properties" : {
-				"STOP_ID" : "26158",
-				"STOP_NAME" : "East Pakenham Rail Replacement Bus Stop",
-				"MODE" : "REGIONAL TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
 				"coordinates" : [ 144.9167017, -37.75624591 ]
 			},
 			"properties" : {
@@ -2183,30 +2171,6 @@
 			"properties" : {
 				"STOP_ID" : "26500",
 				"STOP_NAME" : "Broadmeadows Station",
-				"MODE" : "REGIONAL TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.50702944, -38.08441991 ]
-			},
-			"properties" : {
-				"STOP_ID" : "26506",
-				"STOP_NAME" : "East Pakenham Station",
-				"MODE" : "REGIONAL TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.50705389, -38.08433911 ]
-			},
-			"properties" : {
-				"STOP_ID" : "26507",
-				"STOP_NAME" : "East Pakenham Station",
 				"MODE" : "REGIONAL TRAIN"
 			}
 		},
@@ -2495,18 +2459,6 @@
 			"properties" : {
 				"STOP_ID" : "49296",
 				"STOP_NAME" : "Huntly Station",
-				"MODE" : "REGIONAL TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.50673581, -38.08428099 ]
-			},
-			"properties" : {
-				"STOP_ID" : "49848",
-				"STOP_NAME" : "East Pakenham Station",
 				"MODE" : "REGIONAL TRAIN"
 			}
 		},
@@ -3767,102 +3719,6 @@
 			"properties" : {
 				"STOP_ID" : "vic:rail:EOA",
 				"STOP_NAME" : "Euroa Railway Station",
-				"MODE" : "REGIONAL TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.50663267, -38.08430672 ]
-			},
-			"properties" : {
-				"STOP_ID" : "vic:rail:EPH",
-				"STOP_NAME" : "East Pakenham Railway Station",
-				"MODE" : "REGIONAL TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.50660987, -38.08430643 ]
-			},
-			"properties" : {
-				"STOP_ID" : "vic:rail:EPH_CN1",
-				"STOP_NAME" : "Concourse",
-				"MODE" : "REGIONAL TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.5066595, -38.0841088 ]
-			},
-			"properties" : {
-				"STOP_ID" : "vic:rail:EPH_DP1",
-				"STOP_NAME" : "Decision point 1",
-				"MODE" : "REGIONAL TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.50685512, -38.08402116 ]
-			},
-			"properties" : {
-				"STOP_ID" : "vic:rail:EPH_EN1",
-				"STOP_NAME" : "Pinehill Dr",
-				"MODE" : "REGIONAL TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.50654921, -38.0844859 ]
-			},
-			"properties" : {
-				"STOP_ID" : "vic:rail:EPH_EN2",
-				"STOP_NAME" : "Sharnet Cct",
-				"MODE" : "REGIONAL TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.50781854, -38.08430376 ]
-			},
-			"properties" : {
-				"STOP_ID" : "vic:rail:EPH_KR1",
-				"STOP_NAME" : "Kiss & Ride",
-				"MODE" : "REGIONAL TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.50658726, -38.08429713 ]
-			},
-			"properties" : {
-				"STOP_ID" : "vic:rail:EPH_LI1",
-				"STOP_NAME" : "Lift",
-				"MODE" : "REGIONAL TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.50934455, -38.08439523 ]
-			},
-			"properties" : {
-				"STOP_ID" : "vic:rail:EPH_PR1",
-				"STOP_NAME" : "Park & Ride",
 				"MODE" : "REGIONAL TRAIN"
 			}
 		},
@@ -10710,7 +10566,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 145.00766508, -37.82769725 ]
+				"coordinates" : [ 145.00759694, -37.8276961 ]
 			},
 			"properties" : {
 				"STOP_ID" : "12247",
@@ -10722,7 +10578,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 145.00768997, -37.82761657 ]
+				"coordinates" : [ 145.00761096, -37.82759721 ]
 			},
 			"properties" : {
 				"STOP_ID" : "12248",
@@ -10734,7 +10590,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 145.00769215, -37.8275355 ]
+				"coordinates" : [ 145.00762401, -37.82753435 ]
 			},
 			"properties" : {
 				"STOP_ID" : "12249",
@@ -10746,7 +10602,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 145.00769385, -37.82747245 ]
+				"coordinates" : [ 145.00766002, -37.82746286 ]
 			},
 			"properties" : {
 				"STOP_ID" : "12250",
@@ -13823,30 +13679,6 @@
 			"properties" : {
 				"STOP_ID" : "15523",
 				"STOP_NAME" : "South Kensington Station",
-				"MODE" : "METRO TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 144.90710939, -37.78768905 ]
-			},
-			"properties" : {
-				"STOP_ID" : "15524",
-				"STOP_NAME" : "Flemington Racecourse Station",
-				"MODE" : "METRO TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 144.90733672, -37.78727855 ]
-			},
-			"properties" : {
-				"STOP_ID" : "15525",
-				"STOP_NAME" : "Flemington Racecourse Station",
 				"MODE" : "METRO TRAIN"
 			}
 		},
@@ -17243,18 +17075,6 @@
 			"properties" : {
 				"STOP_ID" : "26321",
 				"STOP_NAME" : "Union Rail Replacement Bus Stop",
-				"MODE" : "METRO TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 144.90680355, -37.78726007 ]
-			},
-			"properties" : {
-				"STOP_ID" : "26322",
-				"STOP_NAME" : "Flemington Racecourse Rail Replacement Bus Stop",
 				"MODE" : "METRO TRAIN"
 			}
 		},
@@ -36150,42 +35970,6 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.90757709, -37.78721073 ]
-			},
-			"properties" : {
-				"STOP_ID" : "vic:rail:RCE",
-				"STOP_NAME" : "Flemington Racecourse Railway Station",
-				"MODE" : "METRO TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 144.90691941, -37.78798306 ]
-			},
-			"properties" : {
-				"STOP_ID" : "vic:rail:RCE_EN1",
-				"STOP_NAME" : "Leonard Cres",
-				"MODE" : "METRO TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 144.90662314, -37.78761733 ]
-			},
-			"properties" : {
-				"STOP_ID" : "vic:rail:RCE_EN2",
-				"STOP_NAME" : "Leonard Cres",
-				"MODE" : "METRO TRAIN"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
 				"coordinates" : [ 145.00277256, -37.72840277 ]
 			},
 			"properties" : {
@@ -43486,7 +43270,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "16714",
-				"STOP_NAME" : "Coburg Market/Sydney Rd #33",
+				"STOP_NAME" : "Victoria St/Sydney Rd #33",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -44278,7 +44062,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "17311",
-				"STOP_NAME" : "St Pauls Catholic Church/Sydney Rd #35",
+				"STOP_NAME" : "Pentridge Bvd/Sydney Rd #35",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -44302,7 +44086,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "17313",
-				"STOP_NAME" : "Coburg Market/Sydney Rd #33",
+				"STOP_NAME" : "Victoria St/Sydney Rd #33",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -44326,7 +44110,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "17315",
-				"STOP_NAME" : "Edward St/Sydney Rd #31",
+				"STOP_NAME" : "Reynard St/Sydney Rd #31",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -44698,7 +44482,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "17850",
-				"STOP_NAME" : "Flinders Street Railway Station/Elizabeth St #1",
+				"STOP_NAME" : "Flinders Street Station/Elizabeth St #1",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -44950,7 +44734,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "17877",
-				"STOP_NAME" : "Flinders Street Railway Station/Elizabeth St #1",
+				"STOP_NAME" : "Flinders Street Station/Elizabeth St #1",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -45130,7 +44914,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "17897",
-				"STOP_NAME" : "Parliament Railway Station/Macarthur St #10",
+				"STOP_NAME" : "Parliament Station/Macarthur St #10",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -45190,7 +44974,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "17905",
-				"STOP_NAME" : "Spencer St/Collins St #1",
+				"STOP_NAME" : "Southern Cross Station/Collins St #1",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -45202,7 +44986,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "17906",
-				"STOP_NAME" : "Spencer St/Collins St #1",
+				"STOP_NAME" : "Southern Cross Station/Collins St #1",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -45262,7 +45046,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "17915",
-				"STOP_NAME" : "Parliament Railway Station/Macarthur St #10",
+				"STOP_NAME" : "Parliament Station/Macarthur St #10",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -45762,6 +45546,18 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
+				"coordinates" : [ 144.95912245, -37.81100513 ]
+			},
+			"properties" : {
+				"STOP_ID" : "18032",
+				"STOP_NAME" : "Queen St/La Trobe St #4",
+				"MODE" : "METRO TRAM"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
 				"coordinates" : [ 144.95676376, -37.81168516 ]
 			},
 			"properties" : {
@@ -45815,6 +45611,18 @@
 			"properties" : {
 				"STOP_ID" : "18040",
 				"STOP_NAME" : "Docklands Stadium/La Trobe St  #D1",
+				"MODE" : "METRO TRAM"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.95871199, -37.81106109 ]
+			},
+			"properties" : {
+				"STOP_ID" : "18044",
+				"STOP_NAME" : "Queen St/La Trobe St #4",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -46594,7 +46402,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18186",
-				"STOP_NAME" : "Batman Park/Spencer St #124",
+				"STOP_NAME" : "Batman Park/Flinders St #124",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -46666,7 +46474,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18196",
-				"STOP_NAME" : "Batman Park/Spencer St #124",
+				"STOP_NAME" : "Batman Park/Flinders St #124",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -46702,7 +46510,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18201",
-				"STOP_NAME" : "Flagstaff Railway Station/William St #7",
+				"STOP_NAME" : "Flagstaff Station/William St #7",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -46762,7 +46570,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18208",
-				"STOP_NAME" : "Flagstaff Railway Station/William St #7",
+				"STOP_NAME" : "Flagstaff Station/William St #7",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -47290,7 +47098,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18372",
-				"STOP_NAME" : "Elsternwick Railway Station/Glenhuntly Rd #44",
+				"STOP_NAME" : "Elsternwick Station/Glenhuntly Rd #44",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -47482,7 +47290,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18404",
-				"STOP_NAME" : "Glen Huntly Railway Station/Glen Huntly Rd  #61",
+				"STOP_NAME" : "Glen Huntly Station/Glen Huntly Rd  #61",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -47998,7 +47806,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18453",
-				"STOP_NAME" : "Macgregor St/Waverley Rd #62",
+				"STOP_NAME" : "The Avenue/Waverley Rd #62",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -48046,7 +47854,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18457",
-				"STOP_NAME" : "Caulfield Railway Station/Derby Rd #57",
+				"STOP_NAME" : "Caulfield Station/Derby Rd #57",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -49738,7 +49546,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18651",
-				"STOP_NAME" : "Caulfield Railway Station/Derby Rd #57",
+				"STOP_NAME" : "Caulfield Station/Derby Rd #57",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -49810,7 +49618,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18657",
-				"STOP_NAME" : "Oak Gr/Waverley Rd #63",
+				"STOP_NAME" : "Hughes St/Waverley Rd #63",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -49846,7 +49654,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18660",
-				"STOP_NAME" : "Bridport St/Victoria Ave #29",
+				"STOP_NAME" : "Merton St/Victoria Ave #29",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -49918,7 +49726,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18703",
-				"STOP_NAME" : "South Yarra Railway Station/Toorak Rd #127",
+				"STOP_NAME" : "South Yarra Station/Toorak Rd #127",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -51082,7 +50890,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "18981",
-				"STOP_NAME" : "Elsternwick Railway Station/Glenhuntly Rd #44",
+				"STOP_NAME" : "Elsternwick Station/Glenhuntly Rd #44",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -52030,7 +51838,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19079",
-				"STOP_NAME" : "Glen Huntly Railway Station/Glen Huntly Rd  #61",
+				"STOP_NAME" : "Glen Huntly Station/Glen Huntly Rd  #61",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -52942,7 +52750,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19299",
-				"STOP_NAME" : "Power St/Riversdale Rd #29",
+				"STOP_NAME" : "Riversdale Junction/Riversdale Rd #29",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -53098,7 +52906,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19312",
-				"STOP_NAME" : "Bridport St/Victoria Ave #29",
+				"STOP_NAME" : "Merton St/Victoria Ave #29",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -53158,7 +52966,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19325",
-				"STOP_NAME" : "South Yarra Railway Station/Toorak Rd #127",
+				"STOP_NAME" : "South Yarra Station/Toorak Rd #127",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -53658,7 +53466,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.94851474, -37.83023206 ]
+				"coordinates" : [ 144.94850339, -37.83023186 ]
 			},
 			"properties" : {
 				"STOP_ID" : "19370",
@@ -53746,7 +53554,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19381",
-				"STOP_NAME" : "North Richmond Railway Station/Victoria St #19",
+				"STOP_NAME" : "North Richmond Station/Victoria St #19",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -53806,7 +53614,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19386",
-				"STOP_NAME" : "Burnley St/Victoria St #24",
+				"STOP_NAME" : "Victoria Gardens/Victoria St #24",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -53890,7 +53698,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19396",
-				"STOP_NAME" : "QPO/Cotham Rd #34",
+				"STOP_NAME" : "High St/Cotham Rd #34",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -54538,7 +54346,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19454",
-				"STOP_NAME" : "Power St/Riversdale Rd #29",
+				"STOP_NAME" : "Riversdale Junction/Riversdale Rd #29",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -54922,7 +54730,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19498",
-				"STOP_NAME" : "City Square/Swanston St #11",
+				"STOP_NAME" : "Collins St/Swanston St #11",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -54934,7 +54742,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19499",
-				"STOP_NAME" : "Federation Square/Swanston St #13",
+				"STOP_NAME" : "Flinders Street Station/Swanston St #13",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -55102,7 +54910,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19572",
-				"STOP_NAME" : "Beatrice St/St Kilda Rd #26",
+				"STOP_NAME" : "Moubray St/St Kilda Rd #26",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -55570,7 +55378,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19685",
-				"STOP_NAME" : "Federation Square/Swanston St #13",
+				"STOP_NAME" : "Flinders Street Station/Swanston St #13",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -55582,7 +55390,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19686",
-				"STOP_NAME" : "City Square/Swanston St #11",
+				"STOP_NAME" : "Collins St/Swanston St #11",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -56050,7 +55858,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19732",
-				"STOP_NAME" : "North Richmond Railway Station/Victoria St #19",
+				"STOP_NAME" : "North Richmond Station/Victoria St #19",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -56110,7 +55918,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "19737",
-				"STOP_NAME" : "Burnley St/Victoria St #24",
+				"STOP_NAME" : "Victoria Gardens/Victoria St #24",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -57070,7 +56878,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "20526",
-				"STOP_NAME" : "Malvern Railway Station/Glenferrie Rd #53",
+				"STOP_NAME" : "Malvern Station/Glenferrie Rd #53",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -57082,7 +56890,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "20527",
-				"STOP_NAME" : "Malvern Railway Station/Glenferrie Rd #53",
+				"STOP_NAME" : "Malvern Station/Glenferrie Rd #53",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -57370,7 +57178,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "20551",
-				"STOP_NAME" : "Kooyong Railway Station/Glenferrie Rd #65",
+				"STOP_NAME" : "Kooyong Station/Glenferrie Rd #65",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -57394,7 +57202,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "20553",
-				"STOP_NAME" : "Vision Australia/Glenferrie Rd #66",
+				"STOP_NAME" : "Kooyong Tennis Centre/Glenferrie Rd #66",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -58990,7 +58798,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "22152",
-				"STOP_NAME" : "Exhibition St/Collins St #7",
+				"STOP_NAME" : "101 Collins St/Collins St #7",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -59002,7 +58810,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "22153",
-				"STOP_NAME" : "Exhibition St/Collins St #7",
+				"STOP_NAME" : "101 Collins St/Collins St #7",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -59111,6 +58919,18 @@
 			"properties" : {
 				"STOP_ID" : "22904",
 				"STOP_NAME" : "William Barak Bridge/Melbourne Park #7A",
+				"MODE" : "METRO TRAM"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.97312518, -37.81152636 ]
+			},
+			"properties" : {
+				"STOP_ID" : "23414",
+				"STOP_NAME" : "Bourke St #9",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -60238,7 +60058,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "43474",
-				"STOP_NAME" : "Merchant St/Collins St #D17",
+				"STOP_NAME" : "Collins Landing/Collins St #D17",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -61294,7 +61114,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "46872",
-				"STOP_NAME" : "Bourke St/Collins St #D18",
+				"STOP_NAME" : "Victoria Harbour Docklands/Collins St #D18",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -61306,7 +61126,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "46873",
-				"STOP_NAME" : "Merchant St/Collins St #D17",
+				"STOP_NAME" : "Collins Landing/Collins St #D17",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -61414,7 +61234,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "46882",
-				"STOP_NAME" : "Glenferrie Railway Station/Glenferrie Rd #74",
+				"STOP_NAME" : "Glenferrie Station/Glenferrie Rd #74",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -61570,7 +61390,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "47493",
-				"STOP_NAME" : "Bourke St/Collins St #D18",
+				"STOP_NAME" : "Victoria Harbour Docklands/Collins St #D18",
 				"MODE" : "METRO TRAM"
 			}
 		},
@@ -71046,7 +70866,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.89752622, -37.79367335 ]
+				"coordinates" : [ 144.89756002, -37.79368297 ]
 			},
 			"properties" : {
 				"STOP_ID" : "10792",
@@ -111810,7 +111630,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.88434894, -37.8029717 ]
+				"coordinates" : [ 144.88437036, -37.80301715 ]
 			},
 			"properties" : {
 				"STOP_ID" : "14901",
@@ -122250,7 +122070,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 145.05390918, -37.93991048 ]
+				"coordinates" : [ 145.0545324, -37.93957834 ]
 			},
 			"properties" : {
 				"STOP_ID" : "16008",
@@ -146154,7 +145974,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.56955712, -37.70350253 ]
+				"coordinates" : [ 144.57053079, -37.70251334 ]
 			},
 			"properties" : {
 				"STOP_ID" : "21184",
@@ -155663,18 +155483,6 @@
 			"properties" : {
 				"STOP_ID" : "22370",
 				"STOP_NAME" : "121 Fairbairn Rd",
-				"MODE" : "METRO BUS"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.09217821, -38.01283838 ]
-			},
-			"properties" : {
-				"STOP_ID" : "22371",
-				"STOP_NAME" : "Attenborough Rd/Station St",
 				"MODE" : "METRO BUS"
 			}
 		},
@@ -169134,7 +168942,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 145.06877499, -37.68426245 ]
+				"coordinates" : [ 145.06873725, -37.68440603 ]
 			},
 			"properties" : {
 				"STOP_ID" : "2691",
@@ -173742,6 +173550,18 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
+				"coordinates" : [ 144.69485092, -37.83143188 ]
+			},
+			"properties" : {
+				"STOP_ID" : "27986",
+				"STOP_NAME" : "Tarneit Station",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
 				"coordinates" : [ 144.70967618, -37.83589351 ]
 			},
 			"properties" : {
@@ -178242,6 +178062,30 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
+				"coordinates" : [ 144.65118964, -37.7291913 ]
+			},
+			"properties" : {
+				"STOP_ID" : "28421",
+				"STOP_NAME" : "Rockbank Station",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.65139146, -37.72926741 ]
+			},
+			"properties" : {
+				"STOP_ID" : "28422",
+				"STOP_NAME" : "Rockbank Station",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
 				"coordinates" : [ 144.63924975, -37.92072119 ]
 			},
 			"properties" : {
@@ -180419,18 +180263,6 @@
 			"properties" : {
 				"STOP_ID" : "28696",
 				"STOP_NAME" : "Burnley Station/Burnley St",
-				"MODE" : "METRO BUS"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.01181271, -37.83486867 ]
-			},
-			"properties" : {
-				"STOP_ID" : "28699",
-				"STOP_NAME" : "Chastleton Ave/Grange Rd",
 				"MODE" : "METRO BUS"
 			}
 		},
@@ -182646,6 +182478,30 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
+				"coordinates" : [ 144.88343784, -37.56292555 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29029",
+				"STOP_NAME" : "Staghorn Blvd/Mt Ridley Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.88304145, -37.56253092 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29030",
+				"STOP_NAME" : "Brossard Rd/Mt Ridley Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
 				"coordinates" : [ 144.88153405, -37.63566269 ]
 			},
 			"properties" : {
@@ -183318,6 +183174,30 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
+				"coordinates" : [ 144.75399919, -37.82545623 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29093",
+				"STOP_NAME" : "Palmers Rd/Dohertys Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.74981619, -37.8247816 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29094",
+				"STOP_NAME" : "Palmers Rd/Dohertys Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
 				"coordinates" : [ 144.7204985, -37.81873865 ]
 			},
 			"properties" : {
@@ -183342,6 +183222,18 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
+				"coordinates" : [ 144.72924321, -37.82326015 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29099",
+				"STOP_NAME" : "Forsyth Rd/Dohertys Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
 				"coordinates" : [ 145.13252988, -37.76547935 ]
 			},
 			"properties" : {
@@ -183359,6 +183251,18 @@
 			"properties" : {
 				"STOP_ID" : "2910",
 				"STOP_NAME" : "Neale St/View Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.72903442, -37.8234003 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29100",
+				"STOP_NAME" : "Forsyth Rd/Dohertys Rd",
 				"MODE" : "METRO BUS"
 			}
 		},
@@ -185982,11 +185886,119 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
+				"coordinates" : [ 144.67605021, -37.74582374 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29390",
+				"STOP_NAME" : "Panaia Bvd/Greigs Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.67635044, -37.74565845 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29391",
+				"STOP_NAME" : "Panaia Bvd/Greigs Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.68046944, -37.74821776 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29392",
+				"STOP_NAME" : "Coronado Cres/Altezze Dr",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
 				"coordinates" : [ 144.67949756, -37.75462376 ]
 			},
 			"properties" : {
 				"STOP_ID" : "29393",
 				"STOP_NAME" : "Fuji Dr/Altezze Dr",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.67941076, -37.75449589 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29394",
+				"STOP_NAME" : "Fuji Dr/Altezze Dr",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.67915753, -37.76187125 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29395",
+				"STOP_NAME" : "Highline Park/Highline Bvd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.683082, -37.76305691 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29396",
+				"STOP_NAME" : "Mt Atkinson Rd/Highline Bvd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.68312727, -37.76269734 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29397",
+				"STOP_NAME" : "Mt Atkinson Rd/Highline Bvd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.68721323, -37.76307502 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29398",
+				"STOP_NAME" : "Danube Dr/Kirkpatrick Bvd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.68683719, -37.7631217 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29399",
+				"STOP_NAME" : "Danube Dr/Kirkpatrick Bvd",
 				"MODE" : "METRO BUS"
 			}
 		},
@@ -186018,11 +186030,131 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
+				"coordinates" : [ 144.6933227, -37.7626271 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29401",
+				"STOP_NAME" : "Clara Ave/Kirkpatrick Bvd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.69838869, -37.76324887 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29402",
+				"STOP_NAME" : "McKindley Dr/Kirkpatrick Bvd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.69842747, -37.76309643 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29403",
+				"STOP_NAME" : "Strathbogie Dr/Kirkpatrick Bvd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.70018255, -37.77569264 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29404",
+				"STOP_NAME" : "Riding Boundary Rd/Hopkins Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.70047169, -37.77588752 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29405",
+				"STOP_NAME" : "Riding Boundary Rd/Hopkins Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
 				"coordinates" : [ 145.21036014, -37.99898941 ]
 			},
 			"properties" : {
 				"STOP_ID" : "2941",
 				"STOP_NAME" : "Dandenong South PS/Kirkham Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.69460578, -37.81229598 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29410",
+				"STOP_NAME" : "Hurst Dr/Derrimut Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.69490514, -37.81289659 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29411",
+				"STOP_NAME" : "Hurst Dr/Derrimut Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.69419951, -37.81549607 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29412",
+				"STOP_NAME" : "Perlino Bvd/Derrimut Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.69440288, -37.81589655 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29413",
+				"STOP_NAME" : "Perlino Bvd/Derrimut Rd",
+				"MODE" : "METRO BUS"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 144.69359587, -37.81919692 ]
+			},
+			"properties" : {
+				"STOP_ID" : "29414",
+				"STOP_NAME" : "Dohertys Rd/Derrimut Rd",
 				"MODE" : "METRO BUS"
 			}
 		},
@@ -186306,7 +186438,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.66222987, -37.82753548 ]
+				"coordinates" : [ 144.66221738, -37.82757128 ]
 			},
 			"properties" : {
 				"STOP_ID" : "29472",
@@ -186318,7 +186450,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.66202578, -37.82752242 ]
+				"coordinates" : [ 144.66201386, -37.8275402 ]
 			},
 			"properties" : {
 				"STOP_ID" : "29473",
@@ -186474,7 +186606,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.63072938, -37.92498334 ]
+				"coordinates" : [ 144.62999563, -37.92480636 ]
 			},
 			"properties" : {
 				"STOP_ID" : "29489",
@@ -186498,7 +186630,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.63058284, -37.92529578 ]
+				"coordinates" : [ 144.62972519, -37.92508025 ]
 			},
 			"properties" : {
 				"STOP_ID" : "29490",
@@ -206230,7 +206362,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "35150",
-				"STOP_NAME" : "Alfredton PS/Cuthberts Rd",
+				"STOP_NAME" : "Lawrie Dr/Cuthberts Rd",
 				"MODE" : "METRO BUS"
 			}
 		},
@@ -252390,18 +252522,6 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.72974124, -37.69227879 ]
-			},
-			"properties" : {
-				"STOP_ID" : "46757",
-				"STOP_NAME" : "Sanctuary Rd/Beattys Rd",
-				"MODE" : "METRO BUS"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
 				"coordinates" : [ 144.73972126, -37.68554069 ]
 			},
 			"properties" : {
@@ -257182,7 +257302,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "47612",
-				"STOP_NAME" : "Sunshine College/Glengala Rd",
+				"STOP_NAME" : "Charlotte St/Glengala Rd",
 				"MODE" : "METRO BUS"
 			}
 		},
@@ -259234,18 +259354,6 @@
 			},
 			"properties" : {
 				"STOP_ID" : "47945",
-				"STOP_NAME" : "Harvest Home Rd/Epping Rd",
-				"MODE" : "METRO BUS"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 145.02851172, -37.62410735 ]
-			},
-			"properties" : {
-				"STOP_ID" : "47946",
 				"STOP_NAME" : "Harvest Home Rd/Epping Rd",
 				"MODE" : "METRO BUS"
 			}
@@ -281922,18 +282030,6 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.73344769, -37.72398069 ]
-			},
-			"properties" : {
-				"STOP_ID" : "51556",
-				"STOP_NAME" : "Dahlia Dr/Botanical Dr",
-				"MODE" : "METRO BUS"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
 				"coordinates" : [ 144.73440357, -37.72574731 ]
 			},
 			"properties" : {
@@ -281951,18 +282047,6 @@
 			"properties" : {
 				"STOP_ID" : "51558",
 				"STOP_NAME" : "The Avenue/Holland Way",
-				"MODE" : "METRO BUS"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 144.73714417, -37.72963889 ]
-			},
-			"properties" : {
-				"STOP_ID" : "51559",
-				"STOP_NAME" : "Buckley Way/Holland Way",
 				"MODE" : "METRO BUS"
 			}
 		},
@@ -282006,18 +282090,6 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.73709991, -37.72960199 ]
-			},
-			"properties" : {
-				"STOP_ID" : "51562",
-				"STOP_NAME" : "Buckley Way/Holland Way",
-				"MODE" : "METRO BUS"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
 				"coordinates" : [ 144.73678466, -37.72765846 ]
 			},
 			"properties" : {
@@ -282035,18 +282107,6 @@
 			"properties" : {
 				"STOP_ID" : "51564",
 				"STOP_NAME" : "Lawson Way/Holland Way",
-				"MODE" : "METRO BUS"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 144.73349167, -37.72402659 ]
-			},
-			"properties" : {
-				"STOP_ID" : "51565",
-				"STOP_NAME" : "Dahlia Dr/Botanical Dr",
 				"MODE" : "METRO BUS"
 			}
 		},
@@ -299898,7 +299958,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.95173254, -37.64735668 ]
+				"coordinates" : [ 144.95160477, -37.64705707 ]
 			},
 			"properties" : {
 				"STOP_ID" : "6790",
@@ -299910,7 +299970,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.95118211, -37.64387751 ]
+				"coordinates" : [ 144.95120936, -37.64453586 ]
 			},
 			"properties" : {
 				"STOP_ID" : "6791",
@@ -300670,7 +300730,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "6859",
-				"STOP_NAME" : "Sunshine College/Glengala Rd",
+				"STOP_NAME" : "Charlotte St/Glengala Rd",
 				"MODE" : "METRO BUS"
 			}
 		},
@@ -314970,7 +315030,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 145.14954235, -37.85211895 ]
+				"coordinates" : [ 145.14951873, -37.85215462 ]
 			},
 			"properties" : {
 				"STOP_ID" : "8242",
@@ -315042,7 +315102,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 145.17638324, -37.8555388 ]
+				"coordinates" : [ 145.17637122, -37.85556565 ]
 			},
 			"properties" : {
 				"STOP_ID" : "8248",
@@ -315066,7 +315126,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 145.18872128, -37.8571622 ]
+				"coordinates" : [ 145.18870926, -37.85718905 ]
 			},
 			"properties" : {
 				"STOP_ID" : "8250",
@@ -319962,7 +320022,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 145.19248134, -37.85818428 ]
+				"coordinates" : [ 145.19248266, -37.85813023 ]
 			},
 			"properties" : {
 				"STOP_ID" : "8697",
@@ -333402,7 +333462,7 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 144.89889299, -37.79393205 ]
+				"coordinates" : [ 144.89888164, -37.79393185 ]
 			},
 			"properties" : {
 				"STOP_ID" : "9943",
@@ -339934,7 +339994,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "20865",
-				"STOP_NAME" : "Caltex Service Station/Princes Hwy",
+				"STOP_NAME" : "Imlay St/Mitchell St",
 				"MODE" : "REGIONAL COACH"
 			}
 		},
@@ -341014,7 +341074,7 @@
 			},
 			"properties" : {
 				"STOP_ID" : "29493",
-				"STOP_NAME" : "West Tarneit Station/Leakes Rd",
+				"STOP_NAME" : "West Tarneit Railway Station",
 				"MODE" : "REGIONAL COACH"
 			}
 		},
@@ -344202,18 +344262,6 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 145.50673581, -38.08428099 ]
-			},
-			"properties" : {
-				"STOP_ID" : "52554",
-				"STOP_NAME" : "East Pakenham Station/Sharnet Cct",
-				"MODE" : "REGIONAL COACH"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
 				"coordinates" : [ 144.98900681, -37.8244422 ]
 			},
 			"properties" : {
@@ -345083,30 +345131,6 @@
 			"properties" : {
 				"STOP_ID" : "17125",
 				"STOP_NAME" : "General Store/Murray St",
-				"MODE" : "REGIONAL BUS"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 143.89431887, -37.42450717 ]
-			},
-			"properties" : {
-				"STOP_ID" : "17134",
-				"STOP_NAME" : "Raglan St/Albert St",
-				"MODE" : "REGIONAL BUS"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 143.89445281, -37.42454674 ]
-			},
-			"properties" : {
-				"STOP_ID" : "17135",
-				"STOP_NAME" : "Raglan St/Albert St",
 				"MODE" : "REGIONAL BUS"
 			}
 		},
@@ -370146,18 +370170,6 @@
 			"type" : "Feature",
 			"geometry" : {
 				"type" : "Point",
-				"coordinates" : [ 147.14918167, -36.9919612 ]
-			},
-			"properties" : {
-				"STOP_ID" : "43690",
-				"STOP_NAME" : "Big D/Great Alpine Rd",
-				"MODE" : "REGIONAL BUS"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
 				"coordinates" : [ 145.40410502, -36.38848257 ]
 			},
 			"properties" : {
@@ -383939,18 +383951,6 @@
 			"properties" : {
 				"STOP_ID" : "49902",
 				"STOP_NAME" : "Brown St/Ziegler Pde",
-				"MODE" : "REGIONAL BUS"
-			}
-		},
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ 147.14920462, -36.99220456 ]
-			},
-			"properties" : {
-				"STOP_ID" : "49921",
-				"STOP_NAME" : "Big D/Great Alpine Rd",
 				"MODE" : "REGIONAL BUS"
 			}
 		},
