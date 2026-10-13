@@ -14,27 +14,25 @@ A modern web application to find parkrun events near public transport stops in V
 
 ## Data Sources
 
-The application uses locally bundled data files:
+Third-party datasets are **not** kept in git. They are downloaded into `public/data/` when you fetch, build, or run checks:
 
-- **parkrun events**: `public/data/events.json` (cached from parkrun.com periodically)
-- **Transport Victoria stops**: `public/data/public_transport_stops.geojson` (cached from Open Data Portal)
+- **parkrun events**: `public/data/events.json` (from parkrun.com)
+- **Transport Victoria stops**: `public/data/public_transport_stops.geojson` (from the Open Data Portal)
 
 Each file carries a top-level `builtAt` UTC ISO timestamp set when that file was last fetched. The footer shows “(as of …)” next to each data source link, using the stamp from the dataset currently loaded in the browser (including when served from localStorage). Cached payloads without a valid `builtAt` are treated as stale and refetched once.
 
-`aube run fetch:public-data` (used by CI and when refreshing data locally) resolves the Transport Victoria stops download URL via the CKAN `package_show` API for the [Public Transport Lines and Stops](https://opendata.transport.vic.gov.au/dataset/public-transport-lines-and-stops) dataset, so republished resource UUIDs do not break fetches. It stamps each downloaded file with `builtAt` after a successful download.
+`aube run fetch:public-data` resolves the Transport Victoria stops download URL via the CKAN `package_show` API for the [Public Transport Lines and Stops](https://opendata.transport.vic.gov.au/dataset/public-transport-lines-and-stops) dataset, so republished resource UUIDs do not break fetches. It stamps each downloaded file with `builtAt` after a successful download. Downloads fail closed on HTTP errors; `aube run validate:public-data` must pass before a build or check succeeds—so HTML error pages are not saved as `.geojson`.
 
-Data is served from the public directory and cached in browser localStorage for 1 week to minimize network requests and improve performance.
-
-### Data Updates
-
-Data files are automatically updated every Monday at 08:00 UTC via GitHub Actions. Manual updates can be triggered via the "Update Data Files" workflow dispatch in GitHub Actions. Downloads fail closed on HTTP errors, and `aube run validate:public-data` must pass before any commit is pushed—so HTML error pages are not saved as `.geojson`.
-
-To refresh data locally after changing URLs or when testing:
+Fetched files are gitignored. After cloning, fetch once before `dev` (or run `check` / `build`, which fetch for you):
 
 ```bash
 aube run fetch:public-data
 aube run validate:public-data
 ```
+
+### Data Updates
+
+CI fetches fresh data on every deploy and weekly on Mondays at 08:00 UTC (scheduled Pages build). You can also re-run the “Build and Deploy to GitHub Pages” workflow manually. The live site always ships whatever was fetched for that build; the browser still caches downloaded files in localStorage for 1 week.
 
 ## Development
 
@@ -42,8 +40,9 @@ New to the project? Start here:
 
 1. Install prerequisites.
 2. Install dependencies.
-3. Run the dev server.
-4. Make changes and run the checks.
+3. Fetch public data.
+4. Run the dev server.
+5. Make changes and run the checks.
 
 ### Prerequisites
 
@@ -58,8 +57,14 @@ New to the project? Start here:
    ```
 
 2. Install project tools and runtime (Node.js and aube will be installed automatically by mise):
+
    ```bash
    mise install
+   ```
+
+3. Download parkrun and transport datasets (required before `aube run dev`):
+   ```bash
+   aube run fetch:public-data
    ```
 
 The `.mise.toml` file specifies the required versions:
@@ -83,7 +88,7 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 ### Scripts
 
 - `aube run dev` - Start development server
-- `aube run build` - Build for production (generates icons and `public/sitemap.xml`, then runs Vite)
+- `aube run build` - Fetch public data, then build for production (icons, `public/sitemap.xml`, Vite)
 - `aube run preview` - Preview production build
 - `aube test` - Run unit tests
 - `aube run test:lighthouse` - Run Lighthouse against the preview build
@@ -93,7 +98,7 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 - `aube run validate:public-data` - Verify `public/data/*.json` and `*.geojson` parse, match expected shapes, and include a valid `builtAt`
 - `aube run fetch:public-data` - Download parkrun events and Transport Victoria stops into `public/data`, stamping each file with `builtAt`
 - `aube run generate:screenshot` - Capture `public/screenshot-desktop.png` (and `dist/`) for social previews and docs (requires Playwright Chromium: `aube exec playwright install chromium`)
-- `aube run check` - Run typecheck, validate public data, tests, Lighthouse, lint, and format check
+- `aube run check` - Run typecheck, fetch and validate public data, tests, Lighthouse, lint, and format check
 
 ### Lighthouse Checks
 
@@ -151,7 +156,7 @@ The app uses browser localStorage to cache data files:
 ```
 .
 ├── scripts/
-│   ├── fetch-public-data.ts      # Resolve CKAN URL + download; used by CI
+│   ├── fetch-public-data.ts      # Resolve CKAN URL + download (gitignored outputs)
 │   ├── generate-screenshot.ts    # App UI capture → screenshot-desktop.png
 │   └── validate-public-data.ts   # CI/local check for public/data shape
 ├── src/
@@ -163,7 +168,7 @@ The app uses browser localStorage to cache data files:
 │   ├── utils/                    # Shared helpers (URLs, JSON parsing, errors)
 │   └── style.css                 # Styles
 ├── public/
-│   ├── data/                     # Bundled parkrun + transport datasets
+│   ├── data/                     # Fetched parkrun + transport datasets (gitignored)
 │   └── screenshot-desktop.png    # App screenshot used for og:image / social previews
 ├── index.html                    # Entry point
 ├── package.json
