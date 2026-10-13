@@ -1,4 +1,5 @@
 import type { TransportStopsData } from "../types";
+import { readBuiltAt } from "./builtAt";
 
 export function assertTransportStopsData(
   data: unknown,
@@ -12,5 +13,8 @@ export function assertTransportStopsData(
     throw new Error(
       `${context}: expected GeoJSON with a features array (parsed JSON was not usable)`,
     );
+  }
+  if (readBuiltAt(data) === null) {
+    throw new Error(`${context}: expected builtAt ISO timestamp`);
   }
 }

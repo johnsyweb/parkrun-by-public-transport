@@ -41,7 +41,9 @@ function validatePublicData(): void {
   const events = parseJsonFile(eventsPath, "events.json");
   assertParkrunEventsData(events, "events.json");
 
-  console.log("✓ public/data files are valid GeoJSON and events structure");
+  console.log(
+    "✓ public/data files are valid GeoJSON and events structure with builtAt",
+  );
 }
 
 validatePublicData();

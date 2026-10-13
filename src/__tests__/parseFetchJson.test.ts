@@ -28,34 +28,52 @@ describe("parseJsonFromResponse", () => {
 });
 
 describe("assertParkrunEventsData", () => {
-  it("accepts nested events.features array", () => {
+  it("accepts nested events.features array with builtAt", () => {
     const data = {
+      builtAt: "2026-07-16T08:20:00.000Z",
       events: { type: "FeatureCollection", features: [] },
     };
     expect(() => assertParkrunEventsData(data, "test")).not.toThrow();
   });
 
-  it("rejects missing events or features array", () => {
+  it("rejects missing events, features array, or builtAt", () => {
     expect(() => assertParkrunEventsData({}, "t")).toThrow(/events object/);
     expect(() => assertParkrunEventsData({ events: {} }, "t")).toThrow(
       /events\.features/,
     );
+    expect(() =>
+      assertParkrunEventsData(
+        { events: { type: "FeatureCollection", features: [] } },
+        "t",
+      ),
+    ).toThrow(/builtAt/);
   });
 });
 
 describe("assertTransportStopsData", () => {
-  it("accepts a minimal FeatureCollection shape", () => {
-    const data = { type: "FeatureCollection", name: "x", features: [] };
+  it("accepts a minimal FeatureCollection shape with builtAt", () => {
+    const data = {
+      builtAt: "2026-07-16T08:20:00.000Z",
+      type: "FeatureCollection",
+      name: "x",
+      features: [],
+    };
     expect(() => assertTransportStopsData(data, "test")).not.toThrow();
   });
 
-  it("rejects non-objects and missing features", () => {
+  it("rejects non-objects, missing features, or builtAt", () => {
     expect(() => assertTransportStopsData(null, "t")).toThrow(
       /expected GeoJSON/,
     );
     expect(() => assertTransportStopsData({ features: "no" }, "t")).toThrow(
       /expected GeoJSON/,
     );
+    expect(() =>
+      assertTransportStopsData(
+        { type: "FeatureCollection", name: "x", features: [] },
+        "t",
+      ),
+    ).toThrow(/builtAt/);
   });
 });
 

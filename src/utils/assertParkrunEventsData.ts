@@ -1,4 +1,5 @@
 import type { ParkrunEventsData } from "../types";
+import { readBuiltAt } from "./builtAt";
 
 export function assertParkrunEventsData(
   data: unknown,
@@ -14,5 +15,8 @@ export function assertParkrunEventsData(
     !Array.isArray((events as { features?: unknown }).features)
   ) {
     throw new Error(`${context}: expected events.features array`);
+  }
+  if (readBuiltAt(data) === null) {
+    throw new Error(`${context}: expected builtAt ISO timestamp`);
   }
 }

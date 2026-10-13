@@ -30,6 +30,7 @@ export interface TransportStop {
 }
 
 export interface ParkrunEventsData {
+  builtAt: string;
   events: {
     type: "FeatureCollection";
     features: ParkrunEvent[];
@@ -37,9 +38,15 @@ export interface ParkrunEventsData {
 }
 
 export interface TransportStopsData {
+  builtAt: string;
   type: "FeatureCollection";
   name: string;
   features: TransportStop[];
+}
+
+export interface TransportStopsByModeResult {
+  stops: TransportStop[];
+  builtAt: string | null;
 }
 
 export interface EventWithNearestStop extends ParkrunEvent {
