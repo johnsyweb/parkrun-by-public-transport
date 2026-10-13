@@ -1,6 +1,8 @@
 node_modules
 dist
 /data/
+public/data/*.json
+public/data/*.geojson
 lighthouse-report.json
 .DS_Store
 package-lock.json
