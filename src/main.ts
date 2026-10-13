@@ -2,10 +2,10 @@ import L from "leaflet";
 import type {
   ParkrunEvent,
   TransportStop,
-  ParkrunEventsData,
   EventWithNearestStop,
 } from "./types";
 import { DataCache } from "./dataCache";
+import { readBuiltAt, renderSourceAsOf } from "./utils/builtAt";
 import { dataLoadErrorMessage } from "./utils/dataLoadErrorMessage";
 import {
   attachNearestStops,
@@ -67,15 +67,32 @@ class parkrunTransportApp {
     });
   }
 
+  private setSourceAsOf(elementId: string, builtAt: string | null) {
+    const container = document.getElementById(elementId);
+    if (!container) return;
+    renderSourceAsOf(container, builtAt);
+  }
+
   private async loadData() {
     try {
-      const [eventsData, stopsFeatures] = await Promise.all([
-        DataCache.getParkrunEvents() as Promise<ParkrunEventsData>,
-        DataCache.getTransportStopsByMode(this.selectedModes),
+      const eventsPromise = DataCache.getParkrunEvents().then((eventsData) => {
+        this.setSourceAsOf("parkrun-events-as-of", readBuiltAt(eventsData));
+        return eventsData;
+      });
+      const stopsPromise = DataCache.getTransportStopsByMode(
+        this.selectedModes,
+      ).then((stopsResult) => {
+        this.setSourceAsOf("transport-stops-as-of", stopsResult.builtAt);
+        return stopsResult;
+      });
+
+      const [eventsData, stopsResult] = await Promise.all([
+        eventsPromise,
+        stopsPromise,
       ]);
 
       this.parkrunEvents = eventsData.events.features;
-      this.transportStops = stopsFeatures as TransportStop[];
+      this.transportStops = stopsResult.stops;
 
       console.log(`Loaded ${this.parkrunEvents.length} parkrun events`);
       console.log(`Loaded ${this.transportStops.length} transport stops`);
@@ -435,10 +452,11 @@ class parkrunTransportApp {
     }
 
     try {
-      const stopsFeatures = await DataCache.getTransportStopsByMode(
+      const stopsResult = await DataCache.getTransportStopsByMode(
         this.selectedModes,
       );
-      this.transportStops = stopsFeatures as TransportStop[];
+      this.transportStops = stopsResult.stops;
+      this.setSourceAsOf("transport-stops-as-of", stopsResult.builtAt);
       console.log(
         `Loaded ${this.transportStops.length} transport stops for modes: ${this.selectedModes.join(", ")}`,
       );
