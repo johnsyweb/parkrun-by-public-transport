@@ -1,7 +1,14 @@
 /// <reference types="vite/client" />
 
-import type { TransportStop, TransportStopsData } from "./types";
+import type {
+  ParkrunEventsData,
+  TransportStop,
+  TransportStopsByModeResult,
+  TransportStopsData,
+} from "./types";
+import { assertParkrunEventsData } from "./utils/assertParkrunEventsData";
 import { assertTransportStopsData } from "./utils/assertTransportStopsData";
+import { isValidBuiltAt, readBuiltAt } from "./utils/builtAt";
 import { parseJsonFromResponse } from "./utils/parseFetchJson";
 
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -9,26 +16,42 @@ const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 interface CachedData<T> {
   data: T;
   timestamp: number;
+  builtAt?: string;
+}
+
+function isFreshTimestamp(timestamp: number): boolean {
+  return Date.now() - timestamp < ONE_WEEK_MS;
+}
+
+function cacheAgeDays(timestamp: number): number {
+  return Math.floor((Date.now() - timestamp) / (24 * 60 * 60 * 1000));
 }
 
 export class DataCache {
   private static async fetchWithCache<T>(
     url: string,
     cacheKey: string,
+    assertData: (data: unknown, context: string) => asserts data is T,
   ): Promise<T> {
-    // Check if we have cached data
     const cached = localStorage.getItem(cacheKey);
 
     if (cached) {
       try {
         const cachedData: CachedData<T> = JSON.parse(cached);
-        const age = Date.now() - cachedData.timestamp;
+        const ageOk = isFreshTimestamp(cachedData.timestamp);
+        const builtAt = readBuiltAt(cachedData.data);
 
-        if (age < ONE_WEEK_MS) {
+        if (ageOk && builtAt !== null) {
           console.log(
-            `✓ Using cached ${cacheKey} (${Math.floor(age / (24 * 60 * 60 * 1000))} days old)`,
+            `✓ Using cached ${cacheKey} (${cacheAgeDays(cachedData.timestamp)} days old)`,
           );
           return cachedData.data;
+        }
+
+        if (ageOk && builtAt === null) {
+          console.log(
+            `⏰ Cached ${cacheKey} is missing builtAt, fetching fresh data...`,
+          );
         } else {
           console.log(
             `⏰ Cache expired for ${cacheKey}, fetching fresh data...`,
@@ -39,7 +62,6 @@ export class DataCache {
       }
     }
 
-    // Fetch fresh data
     console.log(`📥 Downloading ${cacheKey} from ${url}...`);
     const response = await fetch(url);
 
@@ -49,12 +71,13 @@ export class DataCache {
       );
     }
 
-    const data = await parseJsonFromResponse<T>(
+    const raw = await parseJsonFromResponse<unknown>(
       response,
       `${cacheKey} (${url})`,
     );
+    assertData(raw, `${cacheKey} (${url})`);
+    const data = raw;
 
-    // Cache the data (skip if too large)
     try {
       const cachedData: CachedData<T> = {
         data,
@@ -75,47 +98,57 @@ export class DataCache {
       }
     } catch (error) {
       console.warn(`Failed to cache ${cacheKey}:`, error);
-      // Continue anyway - we still have the data
     }
 
     return data;
   }
 
-  static async getParkrunEvents() {
+  static async getParkrunEvents(): Promise<ParkrunEventsData> {
     return this.fetchWithCache(
       `${import.meta.env.BASE_URL}data/events.json`,
       "parkrun-events",
+      assertParkrunEventsData,
     );
   }
 
   static async getTransportStops(): Promise<TransportStopsData> {
-    // Use local data files served from public directory
-    return this.fetchWithCache<TransportStopsData>(
+    return this.fetchWithCache(
       `${import.meta.env.BASE_URL}data/public_transport_stops.geojson`,
       "transport-stops",
+      assertTransportStopsData,
     );
   }
 
   static async getTransportStopsByMode(
     modes: string[],
-  ): Promise<TransportStop[]> {
+  ): Promise<TransportStopsByModeResult> {
     const result: TransportStop[] = [];
     const modesToFetch: string[] = [];
+    let cachedBuiltAt: string | null = null;
 
-    // Check which modes we have cached
     for (const mode of modes) {
       const cached = localStorage.getItem(`transport-stops-${mode}`);
       if (cached) {
         try {
           const cachedEntry: CachedData<TransportStop[]> = JSON.parse(cached);
-          const age = Date.now() - cachedEntry.timestamp;
+          const ageOk = isFreshTimestamp(cachedEntry.timestamp);
+          const builtAt = isValidBuiltAt(cachedEntry.builtAt)
+            ? cachedEntry.builtAt
+            : null;
 
-          if (age < ONE_WEEK_MS) {
+          if (ageOk && builtAt !== null) {
             console.log(
-              `✓ Using cached ${mode} stops (${Math.floor(age / (24 * 60 * 60 * 1000))} days old)`,
+              `✓ Using cached ${mode} stops (${cacheAgeDays(cachedEntry.timestamp)} days old)`,
             );
             result.push(...cachedEntry.data);
+            cachedBuiltAt = cachedBuiltAt ?? builtAt;
             continue;
+          }
+
+          if (ageOk && builtAt === null) {
+            console.log(
+              `⏰ Cached ${mode} stops are missing builtAt, will refetch...`,
+            );
           }
         } catch (error) {
           console.warn(`Failed to parse cached ${mode}:`, error);
@@ -124,13 +157,10 @@ export class DataCache {
       modesToFetch.push(mode);
     }
 
-    // If all modes are cached, return them
     if (modesToFetch.length === 0) {
-      return result;
+      return { stops: result, builtAt: cachedBuiltAt };
     }
 
-    // Fetch the full dataset once and split by mode
-    // Using local data that's updated weekly by GitHub Actions workflow
     console.log(`📥 Fetching transport stops (will cache all modes)...`);
     const response = await fetch(
       `${import.meta.env.BASE_URL}data/public_transport_stops.geojson`,
@@ -145,8 +175,8 @@ export class DataCache {
     );
     assertTransportStopsData(raw, "public_transport_stops.geojson");
     const data = raw;
+    const builtAt = data.builtAt;
 
-    // Split by mode and cache separately
     const modeGroups: Record<string, TransportStop[]> = {};
 
     for (const feature of data.features) {
@@ -157,12 +187,12 @@ export class DataCache {
       modeGroups[mode].push(feature);
     }
 
-    // Cache each mode separately
     for (const [mode, features] of Object.entries(modeGroups)) {
       try {
         const cachedData: CachedData<TransportStop[]> = {
           data: features,
           timestamp: Date.now(),
+          builtAt,
         };
         const serialized = JSON.stringify(cachedData);
         const sizeInKB = new Blob([serialized]).size / 1024;
@@ -173,18 +203,17 @@ export class DataCache {
         );
       } catch (error) {
         console.warn(`Failed to cache ${mode}:`, error);
-        // Continue - we still have the data in memory
       }
     }
 
-    // Return all requested modes (now that they're all cached/loaded)
+    const stops: TransportStop[] = [];
     for (const mode of modes) {
       if (modeGroups[mode]) {
-        result.push(...modeGroups[mode]);
+        stops.push(...modeGroups[mode]);
       }
     }
 
-    return result;
+    return { stops, builtAt };
   }
 
   static getCachedModes(): string[] {
