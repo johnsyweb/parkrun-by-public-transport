@@ -19,7 +19,9 @@ The application uses locally bundled data files:
 - **parkrun events**: `public/data/events.json` (cached from parkrun.com periodically)
 - **Transport Victoria stops**: `public/data/public_transport_stops.geojson` (cached from Open Data Portal)
 
-`aube run fetch:public-data` (used by CI and when refreshing data locally) resolves the Transport Victoria stops download URL via the CKAN `package_show` API for the [Public Transport Lines and Stops](https://opendata.transport.vic.gov.au/dataset/public-transport-lines-and-stops) dataset, so republished resource UUIDs do not break fetches.
+Each file carries a top-level `builtAt` UTC ISO timestamp set when that file was last fetched. The footer shows “(as of …)” next to each data source link, using the stamp from the dataset currently loaded in the browser (including when served from localStorage). Cached payloads without a valid `builtAt` are treated as stale and refetched once.
+
+`aube run fetch:public-data` (used by CI and when refreshing data locally) resolves the Transport Victoria stops download URL via the CKAN `package_show` API for the [Public Transport Lines and Stops](https://opendata.transport.vic.gov.au/dataset/public-transport-lines-and-stops) dataset, so republished resource UUIDs do not break fetches. It stamps each downloaded file with `builtAt` after a successful download.
 
 Data is served from the public directory and cached in browser localStorage for 1 week to minimize network requests and improve performance.
 
@@ -88,8 +90,8 @@ On first load, the app will download parkrun events (~870KB) and Transport Victo
 - `aube run test:watch` - Run tests in watch mode
 - `aube run lint` - Run ESLint
 - `aube run format` - Format with Prettier
-- `aube run validate:public-data` - Verify `public/data/*.json` and `*.geojson` parse and match expected shapes
-- `aube run fetch:public-data` - Download parkrun events and Transport Victoria stops into `public/data`
+- `aube run validate:public-data` - Verify `public/data/*.json` and `*.geojson` parse, match expected shapes, and include a valid `builtAt`
+- `aube run fetch:public-data` - Download parkrun events and Transport Victoria stops into `public/data`, stamping each file with `builtAt`
 - `aube run generate:screenshot` - Capture `public/screenshot-desktop.png` (and `dist/`) for social previews and docs (requires Playwright Chromium: `aube exec playwright install chromium`)
 - `aube run check` - Run typecheck, validate public data, tests, Lighthouse, lint, and format check
 
